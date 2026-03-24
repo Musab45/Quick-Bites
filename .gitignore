@@ -1,0 +1,27 @@
+# General
+.DS_Store
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Flutter/Dart
+mobile/.dart_tool/
+mobile/.packages
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.metadata
+mobile/pubspec.lock
+mobile/ios/Flutter/ephemeral/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/android/.gradle/
+mobile/android/local.properties

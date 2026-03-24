@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#dbe1ff",
+              "on-background": "#191c1e",
+              "background": "#f8f9fb",
+              "surface-variant": "#e1e2e4",
+              "secondary-fixed": "#ffdbca",
+              "on-primary-fixed": "#00174b",
+              "tertiary-container": "#bc4800",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadc",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffdbcd",
+              "surface-container-low": "#f3f4f6",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "secondary": "#9d4300",
+              "on-tertiary-container": "#ffede6",
+              "surface-bright": "#f8f9fb",
+              "primary-container": "#2563eb",
+              "on-secondary-container": "#5c2400",
+              "on-error-container": "#93000a",
+              "surface": "#f8f9fb",
+              "outline-variant": "#c3c6d7",
+              "inverse-surface": "#2e3132",
+              "secondary-container": "#fd761a",
+              "primary": "#004ac6",
+              "surface-tint": "#0053db",
+              "outline": "#737686",
+              "secondary-fixed-dim": "#ffb690",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-secondary-fixed-variant": "#783200",
+              "surface-container-high": "#e7e8ea",
+              "on-tertiary-fixed": "#360f00",
+              "on-primary-container": "#eeefff",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-primary": "#ffffff",
+              "surface-container-highest": "#e1e2e4",
+              "tertiary": "#943700",
+              "on-surface": "#191c1e",
+              "inverse-on-surface": "#f0f1f3",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-container": "#edeef0",
+              "on-secondary-fixed": "#341100",
+              "on-primary-fixed-variant": "#003ea8"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-white sticky top-0 z-50 flex items-center justify-between w-full px-4 h-16 tonal-shift">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-on-surface" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline font-semibold text-lg tracking-tight">Checkout</h1>
+</div>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<main class="max-w-md mx-auto px-4 py-6 space-y-6 pb-32">
+<!-- Section 1: Delivery Address -->
+<section class="bg-surface-container-lowest p-5 rounded-xl space-y-4 shadow-[0_4px_20px_0_rgba(0,0,0,0.03)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-headline font-bold text-sm tracking-tight text-on-surface-variant uppercase">Deliver to</span>
+</div>
+<button class="text-primary font-label text-sm font-bold hover:opacity-80 transition-opacity">Change</button>
+</div>
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-4 flex items-start gap-3">
+<div class="flex-1">
+<p class="font-body font-semibold text-on-surface">Home — Orchard Towers</p>
+<p class="font-body text-sm text-on-surface-variant mt-1">450 Elizabeth St, Melbourne VIC 3000, Australia</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Payment Method -->
+<section class="bg-surface-container-lowest p-5 rounded-xl space-y-4 shadow-[0_4px_20px_0_rgba(0,0,0,0.03)]">
+<h2 class="font-headline font-bold text-sm tracking-tight text-on-surface-variant uppercase">Payment Method</h2>
+<div class="flex flex-wrap gap-3">
+<!-- Selected State -->
+<div class="relative flex items-center gap-2 px-4 py-3 bg-white border-2 border-primary rounded-xl cursor-pointer">
+<span class="material-symbols-outlined text-on-surface" data-icon="credit_card">credit_card</span>
+<span class="font-label text-sm font-bold">**** 8842</span>
+<div class="absolute -top-2 -right-2 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+<!-- Unselected States -->
+<div class="flex items-center gap-2 px-4 py-3 bg-surface-container-low border border-transparent rounded-xl cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label text-sm font-bold text-on-surface-variant">Wallet</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-3 bg-surface-container-low border border-transparent rounded-xl cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="payments">payments</span>
+<span class="font-label text-sm font-bold text-on-surface-variant">Cash</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Order Summary -->
+<section class="bg-surface-container-lowest p-5 rounded-xl space-y-4 shadow-[0_4px_20px_0_rgba(0,0,0,0.03)]">
+<h2 class="font-headline font-bold text-sm tracking-tight text-on-surface-variant uppercase">Order Summary</h2>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">1x Truffle Wagyu Burger</span>
+<span class="font-semibold">$18.00</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">1x Salted Fries (Large)</span>
+<span class="font-semibold">$4.50</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Delivery Fee</span>
+<span class="font-semibold text-secondary">$2.00</span>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+<span class="font-headline font-bold text-on-surface">Total</span>
+<span class="font-headline font-bold text-xl text-primary">$24.50</span>
+</div>
+</div>
+</section>
+<!-- Section 4: Estimated Time -->
+<section class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.03)] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="schedule" style="font-variation-settings: 'FILL' 1;">schedule</span>
+</div>
+<div>
+<p class="font-label text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">Estimated Time</p>
+<p class="font-headline font-bold text-on-surface">30–45 min</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</section>
+</main>
+<!-- Bottom Fixed Button -->
+<div class="fixed bottom-0 left-0 w-full p-4 bg-glass z-50">
+<div class="max-w-md mx-auto">
+<button class="w-full h-14 bg-secondary-container hover:opacity-90 active:scale-[0.98] transition-all rounded-xl shadow-lg shadow-secondary/20 flex items-center justify-center gap-2 group">
+<span class="font-headline font-extrabold text-on-primary text-lg tracking-wide uppercase">Place Order — $24.50</span>
+<span class="material-symbols-outlined text-on-primary group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

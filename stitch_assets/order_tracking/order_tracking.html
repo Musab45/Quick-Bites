@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuickBite — Track Order</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#dbe1ff",
+              "on-background": "#191c1e",
+              "background": "#f8f9fb",
+              "surface-variant": "#e1e2e4",
+              "secondary-fixed": "#ffdbca",
+              "on-primary-fixed": "#00174b",
+              "tertiary-container": "#bc4800",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadc",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffdbcd",
+              "surface-container-low": "#f3f4f6",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "secondary": "#9d4300",
+              "on-tertiary-container": "#ffede6",
+              "surface-bright": "#f8f9fb",
+              "primary-container": "#2563eb",
+              "on-secondary-container": "#5c2400",
+              "on-error-container": "#93000a",
+              "surface": "#f8f9fb",
+              "outline-variant": "#c3c6d7",
+              "inverse-surface": "#2e3132",
+              "secondary-container": "#fd761a",
+              "primary": "#004ac6",
+              "surface-tint": "#0053db",
+              "outline": "#737686",
+              "secondary-fixed-dim": "#ffb690",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-secondary-fixed-variant": "#783200",
+              "surface-container-high": "#e7e8ea",
+              "on-tertiary-fixed": "#360f00",
+              "on-primary-container": "#eeefff",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-primary": "#ffffff",
+              "surface-container-highest": "#e1e2e4",
+              "tertiary": "#943700",
+              "on-surface": "#191c1e",
+              "inverse-on-surface": "#f0f1f3",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-container": "#edeef0",
+              "on-secondary-fixed": "#341100",
+              "on-primary-fixed-variant": "#003ea8"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stepper-line {
+            width: 2px;
+            background-color: #e1e2e4;
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -8px;
+        }
+        .stepper-line-active {
+            background-color: #004ac6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed">
+<!-- TopAppBar Component -->
+<header class="bg-white dark:bg-slate-950 flex items-center justify-between w-full px-4 h-16 sticky top-0 z-40 tonal-shift bg-surface dark:bg-slate-900">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-semibold text-lg tracking-tight text-on-surface">Track Order</h1>
+</div>
+<div class="text-blue-600 dark:text-blue-400 font-bold text-xl">QuickBite</div>
+</header>
+<main class="max-w-md mx-auto pb-32">
+<!-- Map Section (Asymmetric Editorial Style) -->
+<section class="p-4">
+<div class="relative w-full h-[220px] rounded-2xl overflow-hidden shadow-sm bg-surface-container-high group">
+<div class="absolute inset-0 bg-slate-200 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover grayscale-[0.2] contrast-[0.9]" data-alt="Detailed city map showing delivery route" data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+<div class="absolute inset-0 bg-primary/5"></div>
+<!-- Map Pin Overlays -->
+<div class="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 bg-white p-1 rounded-full shadow-lg border-2 border-primary">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small burger icon for restaurant location" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 bg-primary text-white p-2 rounded-full shadow-xl">
+<span class="material-symbols-outlined" data-icon="delivery_dining" style="font-variation-settings: 'FILL' 1;">delivery_dining</span>
+</div>
+</div>
+<div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm border border-white/20">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary">Live Tracking</span>
+</div>
+</div>
+</section>
+<!-- Order Status Stepper -->
+<section class="px-6 py-4">
+<h2 class="font-headline text-xl font-bold mb-8 text-on-surface">Order Timeline</h2>
+<div class="space-y-0">
+<!-- Step 1: Completed -->
+<div class="relative flex gap-6 pb-10">
+<div class="stepper-line stepper-line-active"></div>
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white ring-4 ring-white">
+<span class="material-symbols-outlined text-[16px]" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1 -mt-1">
+<div class="flex justify-between items-start">
+<p class="font-headline font-bold text-on-surface">Order Placed</p>
+<span class="text-xs font-medium text-slate-400">12:45 PM</span>
+</div>
+<p class="text-sm text-slate-500 mt-0.5">We have received your order</p>
+</div>
+</div>
+<!-- Step 2: Completed -->
+<div class="relative flex gap-6 pb-10">
+<div class="stepper-line stepper-line-active"></div>
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white ring-4 ring-white">
+<span class="material-symbols-outlined text-[16px]" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<div class="flex-1 -mt-1">
+<div class="flex justify-between items-start">
+<p class="font-headline font-bold text-on-surface">Preparing</p>
+<span class="text-xs font-medium text-slate-400">12:52 PM</span>
+</div>
+<p class="text-sm text-slate-500 mt-0.5">The kitchen is working its magic</p>
+</div>
+</div>
+<!-- Step 3: Active -->
+<div class="relative flex gap-6 pb-10">
+<div class="stepper-line"></div>
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white ring-8 ring-primary/10">
+<span class="material-symbols-outlined text-[16px]" data-icon="delivery_dining" style="font-variation-settings: 'FILL' 1;">delivery_dining</span>
+</div>
+<div class="flex-1 -mt-1">
+<div class="flex justify-between items-start">
+<p class="font-headline font-bold text-primary">On the Way</p>
+<span class="text-xs font-bold text-primary">Live</span>
+</div>
+<p class="text-sm text-slate-600 font-medium mt-0.5">Driver is 1.2 miles away from you</p>
+</div>
+</div>
+<!-- Step 4: Pending -->
+<div class="relative flex gap-6">
+<div class="relative z-10 w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400 ring-4 ring-white">
+<span class="material-symbols-outlined text-[16px]" data-icon="home">home</span>
+</div>
+<div class="flex-1 -mt-1">
+<div class="flex justify-between items-start">
+<p class="font-headline font-bold text-slate-400">Delivered</p>
+<span class="text-xs font-medium text-slate-300">Expected 1:15 PM</span>
+</div>
+<p class="text-sm text-slate-400 mt-0.5">Safe delivery to your doorstep</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Driver Info Card -->
+<section class="px-4 py-6">
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-xl object-cover" data-alt="Professional delivery driver portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary-container text-white w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined text-[12px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Your Courier</p>
+<h3 class="font-headline font-bold text-on-surface">Marcus Rodriguez</h3>
+<p class="text-xs text-slate-500">Gold Tier • 1.2k Deliveries</p>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="call" style="font-variation-settings: 'FILL' 1;">call</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Estimated Arrival Bar -->
+<div class="fixed bottom-6 left-4 right-4 z-50">
+<div class="bg-secondary-container rounded-2xl p-4 flex items-center justify-between shadow-lg shadow-secondary/20 overflow-hidden relative">
+<!-- Asymmetric accent background -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="schedule">schedule</span>
+</div>
+<div>
+<p class="text-white/80 text-[10px] font-bold uppercase tracking-widest">Estimated Arrival</p>
+<p class="text-white font-headline font-extrabold text-lg">Arriving in 12 minutes</p>
+</div>
+</div>
+<button class="relative z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                Details
+            </button>
+</div>
+</div>
+<!-- BottomNavBar (Hidden on map view screens usually, but included as per shell logic context check) -->
+<!-- Suppression: This is a focused Task-Flow tracking screen, typical of "Temporary Departure", thus suppressed per UX Goal. -->
+</body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#dbe1ff",
+              "on-background": "#191c1e",
+              "background": "#f8f9fb",
+              "surface-variant": "#e1e2e4",
+              "secondary-fixed": "#ffdbca",
+              "on-primary-fixed": "#00174b",
+              "tertiary-container": "#bc4800",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadc",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffdbcd",
+              "surface-container-low": "#f3f4f6",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "secondary": "#9d4300",
+              "on-tertiary-container": "#ffede6",
+              "surface-bright": "#f8f9fb",
+              "primary-container": "#2563eb",
+              "on-secondary-container": "#5c2400",
+              "on-error-container": "#93000a",
+              "surface": "#f8f9fb",
+              "outline-variant": "#c3c6d7",
+              "inverse-surface": "#2e3132",
+              "secondary-container": "#fd761a",
+              "primary": "#004ac6",
+              "surface-tint": "#0053db",
+              "outline": "#737686",
+              "secondary-fixed-dim": "#ffb690",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-secondary-fixed-variant": "#783200",
+              "surface-container-high": "#e7e8ea",
+              "on-tertiary-fixed": "#360f00",
+              "on-primary-container": "#eeefff",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-primary": "#ffffff",
+              "surface-container-highest": "#e1e2e4",
+              "tertiary": "#943700",
+              "on-surface": "#191c1e",
+              "inverse-on-surface": "#f0f1f3",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-container": "#edeef0",
+              "on-secondary-fixed": "#341100",
+              "on-primary-fixed-variant": "#003ea8"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Hero Section -->
+<div class="relative h-[220px] w-full overflow-hidden">
+<img alt="Gourmet fusion dish" class="h-full w-full object-cover" data-alt="Premium gourmet fusion dish with artistic plating" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+<!-- Overlay for legibility -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
+<!-- Hero Actions -->
+<div class="absolute top-4 left-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur-sm text-on-surface transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+</div>
+<div class="absolute top-4 right-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur-sm text-error transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+<!-- Content Container -->
+<main class="relative -mt-3 min-h-screen rounded-t-xl bg-surface-container-lowest pb-24 shadow-2xl">
+<!-- Header Info -->
+<div class="px-5 pt-6 pb-4">
+<h1 class="font-headline text-[22px] font-bold tracking-tight text-on-surface">The Golden Truffle</h1>
+<div class="mt-2 flex items-center space-x-3">
+<div class="flex items-center text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-sm font-bold">4.8</span>
+</div>
+<span class="text-xs text-outline">•</span>
+<span class="text-sm font-medium text-on-surface-variant">1.2k+ Reviews</span>
+<span class="text-xs text-outline">•</span>
+<span class="text-sm font-medium text-on-surface-variant">Modern European</span>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<div class="flex items-center rounded-lg bg-surface-container-low px-3 py-1.5">
+<span class="material-symbols-outlined mr-1.5 text-lg text-primary" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-bold text-on-surface">25-35 min</span>
+</div>
+<div class="flex items-center rounded-lg bg-surface-container-low px-3 py-1.5">
+<span class="material-symbols-outlined mr-1.5 text-lg text-primary" data-icon="delivery_dining">delivery_dining</span>
+<span class="text-[12px] font-bold text-on-surface">$2.99 Delivery</span>
+</div>
+<div class="flex items-center rounded-lg bg-surface-container-low px-3 py-1.5">
+<span class="material-symbols-outlined mr-1.5 text-lg text-primary" data-icon="shopping_bag">shopping_bag</span>
+<span class="text-[12px] font-bold text-on-surface">$15.00 Min.</span>
+</div>
+</div>
+</div>
+<!-- Divider Logic (Background Shift) -->
+<div class="h-1 w-full bg-surface-container-low"></div>
+<!-- Tabs Section -->
+<div class="sticky top-0 z-40 bg-surface-container-lowest">
+<div class="flex w-full">
+<button class="relative flex-1 py-4 text-center">
+<span class="font-headline text-sm font-bold text-primary">Menu</span>
+<div class="absolute bottom-0 left-0 h-0.5 w-full bg-primary"></div>
+</button>
+<button class="flex-1 py-4 text-center">
+<span class="font-headline text-sm font-semibold text-outline">Reviews</span>
+</button>
+</div>
+</div>
+<!-- Editorial Menu Feed (Bento Style) -->
+<div class="px-5 pt-6">
+<h2 class="font-headline text-lg font-bold text-on-surface">Popular Selection</h2>
+<div class="mt-4 grid grid-cols-1 gap-4">
+<!-- Large Feature Card -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-colors hover:bg-surface-container-high">
+<div class="flex p-4">
+<div class="flex-1 pr-4">
+<h3 class="font-headline text-base font-bold text-on-surface">Truffle Tagliatelle</h3>
+<p class="mt-1 line-clamp-2 text-xs leading-relaxed text-on-surface-variant">Handmade pasta with creamy forest mushroom sauce, fresh seasonal black truffle, and aged parmigiano.</p>
+<span class="mt-3 block font-headline text-base font-extrabold text-primary">$24.50</span>
+</div>
+<div class="h-24 w-24 shrink-0 overflow-hidden rounded-lg">
+<img alt="Truffle Pasta" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" data-alt="Creamy truffle pasta with mushrooms and herbs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+</div>
+</div>
+<!-- Secondary Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col rounded-xl bg-surface-container-low p-3">
+<div class="mb-3 h-28 w-full overflow-hidden rounded-lg">
+<img alt="Summer Salad" class="h-full w-full object-cover" data-alt="Fresh vibrant summer salad bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+<h3 class="font-headline text-[13px] font-bold text-on-surface">Quinoa Power Bowl</h3>
+<span class="mt-1 text-[13px] font-extrabold text-primary">$18.00</span>
+</div>
+<div class="flex flex-col rounded-xl bg-surface-container-low p-3">
+<div class="mb-3 h-28 w-full overflow-hidden rounded-lg">
+<img alt="Margherita Pizza" class="h-full w-full object-cover" data-alt="Classic wood-fired margherita pizza" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+<h3 class="font-headline text-[13px] font-bold text-on-surface">Artisan Pizza</h3>
+<span class="mt-1 text-[13px] font-extrabold text-primary">$16.50</span>
+</div>
+</div>
+<!-- Horizontal List Item -->
+<div class="flex items-center space-x-4 border-b border-surface-container-high py-4">
+<div class="flex-1">
+<h3 class="font-headline text-sm font-bold text-on-surface">Wagyu Beef Carpaccio</h3>
+<p class="mt-0.5 text-xs text-on-surface-variant">Capers, olive oil, lemon zest.</p>
+<span class="mt-2 block font-headline text-sm font-bold text-primary">$14.00</span>
+</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-fixed text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Cart) -->
+<div class="fixed bottom-6 left-1/2 z-50 w-[calc(100%-40px)] -translate-x-1/2">
+<button class="flex w-full items-center justify-between rounded-xl bg-primary px-6 py-4 text-on-primary shadow-xl ring-4 ring-primary-container/20 transition-transform active:scale-95">
+<div class="flex items-center space-x-3">
+<div class="flex h-6 w-6 items-center justify-center rounded-md bg-on-primary/20 text-[12px] font-bold">2</div>
+<span class="text-sm font-bold tracking-tight">View Cart</span>
+</div>
+<span class="text-sm font-extrabold">$42.50</span>
+</button>
+</div>
+<!-- Navigation Shell (BottomNavBar) - Suppressed because it's a detail screen, but available for other top-level screens -->
+<nav class="hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl h-[64px] shadow-[0_-4px_12px_0_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider">Profile</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search - QuickBite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-secondary-fixed": "#341100",
+                        "surface-dim": "#d9dadc",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "surface": "#f8f9fb",
+                        "on-secondary-fixed-variant": "#783200",
+                        "on-secondary-container": "#5c2400",
+                        "primary": "#004ac6",
+                        "on-tertiary-container": "#ffede6",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-high": "#e7e8ea",
+                        "surface-container": "#edeef0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-error": "#ffffff",
+                        "background": "#f8f9fb",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#0053db",
+                        "primary-container": "#2563eb",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-low": "#f3f4f6",
+                        "secondary": "#9d4300",
+                        "on-surface-variant": "#434655",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-background": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "tertiary-container": "#bc4800",
+                        "outline": "#737686",
+                        "surface-bright": "#f8f9fb",
+                        "secondary-fixed": "#ffdbca",
+                        "surface-variant": "#e1e2e4",
+                        "secondary-container": "#fd761a",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00174b",
+                        "surface-container-highest": "#e1e2e4",
+                        "tertiary": "#943700"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-gray-950 docked full-width top-0 sticky z-50 shadow-none">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-blue-700 dark:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors active:scale-95 duration-200 p-2 rounded-full" data-icon="menu">menu</button>
+<h1 class="text-blue-700 dark:text-blue-500 font-black text-2xl tracking-tighter font-headline">QuickBite</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border-2 border-primary/10">
+<img alt="User Profile" data-alt="professional headshot of a young man with a friendly smile, clean background, high-end photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATn1LIzS5MPm_ZDCLatr2XwsmGbsUp0smQuj6DQREAykcUexz1bGHrsfr7aepJ4cAKGx8vsa6yN9tLkTSyV8AmeLPOEPK9hFqxbMYG7IGTzOMDMq7FBgpu7wKJqDHKtX66gtQuaSZpMchf8y3OdDbyehMnTeS4Xk4Vn4sE7x-0O5YWEvC6i7bEt4hWSUHrIY6y4jdt8enN7snwTQz5t_cQoTioUwIjsqxN8hu3KpYGBOQEUYQiYbqhn03qajXHZLM60yUXAJX6Gg"/>
+</div>
+</div>
+</header>
+<main class="pb-32 max-w-screen-xl mx-auto">
+<!-- Search Bar Section -->
+<section class="px-6 pt-6 pb-4 sticky top-[72px] bg-surface z-40">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-12 bg-surface-container-lowest border-none rounded-full shadow-sm focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-outline transition-all font-body" placeholder="Search for sushi, burgers, or pizza..." type="text"/>
+<div class="absolute inset-y-0 right-4 flex items-center">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="mic">mic</button>
+</div>
+</div>
+</section>
+<!-- Recent Searches (Chips) -->
+<section class="px-6 py-4">
+<h2 class="font-headline font-bold text-sm uppercase tracking-widest text-outline mb-4">Recent Searches</h2>
+<div class="flex flex-wrap gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest hover:bg-surface-container-high transition-colors rounded-full text-on-surface-variant text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+                    Artisan Pizza
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest hover:bg-surface-container-high transition-colors rounded-full text-on-surface-variant text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+                    Vegan Bowls
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest hover:bg-surface-container-high transition-colors rounded-full text-on-surface-variant text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+                    Thai Tea
+                </button>
+</div>
+</section>
+<!-- Popular Categories (Asymmetric Grid) -->
+<section class="px-6 py-8">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline font-extrabold text-2xl tracking-tight">Popular Categories</h2>
+<p class="text-outline text-sm">Curated selections for your cravings</p>
+</div>
+<button class="text-primary font-bold text-sm hover:underline">See All</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Large Featured Category -->
+<div class="col-span-2 row-span-2 relative rounded-3xl overflow-hidden group aspect-square md:aspect-auto">
+<img alt="Pizza" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="close-up of a rustic wood-fired pizza with bubbling mozzarella and fresh basil leaves, warm golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJlMObRapGj9UnuU7iNIkVkcIG3OIpOoUk_MHrN2dzrFDlzz4qaZPb8oYns_FF1D5Onk-q1Z-vx8JEk1-8VtNwcFcjRZW387o9h3_KquCe-TmVwLcYYLxsmqyZPxp7sgzLKgwyqIkeNQ5Wgw2EBk4ruomot30al1SoOocc8IGV2ie175AufGXeBlChX_jEGJ71s_xxKGnCkdyvHA-vJYCBpmvDEASLHGdkjIPW5Yp7K067HOhPqsW-TM5Z8je70SE5L9x3xMP_pQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-2 inline-block">Trending</span>
+<h3 class="text-white font-headline font-bold text-3xl">Italian Classics</h3>
+<p class="text-white/80 text-sm">240+ Restaurants</p>
+</div>
+</div>
+<!-- Small Categories -->
+<div class="relative rounded-3xl overflow-hidden group aspect-square">
+<img alt="Healthy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="vibrant healthy salad bowl with avocado, quinoa and fresh vegetables on a bright clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe-VYx7q6iKqv6z16V9xjOBJ0iv1NyfhOs7e4u56zvpiUF7QNEX1GQl7a7ckrvT9nJpygioGtpG1vanWz_PbmkcOspinZrKehd_1QxqarYcYrNj0TMvNBdvUcHQOSDZ3TT41xSiyzV3ufp3gqN2pmVroP1uV9aP4Tih5h6nzvwBUJU3bglPsQCCPbv1nxMoXpG_bdnoyoh-6GQ94ItOs5Jtk8lt2CjU3pb96AboHGkrxBz3ThtYfyMo2le80HANczlrt12W4SpIg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<h3 class="absolute bottom-4 left-4 text-white font-headline font-bold text-lg">Healthy</h3>
+</div>
+<div class="relative rounded-3xl overflow-hidden group aspect-square">
+<img alt="Sushi" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="elegant sushi platter with assorted nigiri and rolls, minimalist dark slate background, professional studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCON_IPPXjxqbCiYNhPWBzj9Nb71zjaGMD6OjHMdlMBt1TSZqPByxn-ATDAI2tKCjPBKzBdkqYRjaPzb6LhKMlgXblVnt9lb0P283eDe-3Qxp41TzjV42ObqtzVOjr-zLHFbCOrIYg6RGHxteTFoe51DbuMWsEAmzhZIVu-ndByiIHewNNCiyCxjhVKmz_pdzdxf60S6t4DExg67CpaMm3MewrDkKDe8zfSVPMnCNI8WOk9IX_jDJUhgysKJs9S1jSPgCEmF8VgmQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<h3 class="absolute bottom-4 left-4 text-white font-headline font-bold text-lg">Sushi</h3>
+</div>
+<div class="relative rounded-3xl overflow-hidden group aspect-square md:col-span-2">
+<img alt="Burgers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="gourmet juicy beef burger with melting cheese and crisp lettuce on a toasted brioche bun, moody dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVGoSdAN05EJrzvuUa4EpdKyBR1-M0K4OUTCW7p3hWkgRdWBL-Id0EzGPobJ7vmGjuqB_DKM_EYIundHfEVL1hZkp5_wcPHMJuv8LVpfmyq-Ql1PVkF7XNFGaPO-VlCTw17JL1otoJ3bDFPDmAgeJAhBOKcNGDWb9MfoTNnj7INstiaNfG2KneCAQ67M2zcN7u__3qlmAkp_Md9dJfp0ar6vggzDwUwjpbkJPqqSa4D2sdw9NjFWib1plSfb3l_Z_j-VGMZS0h_A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<h3 class="absolute bottom-4 left-4 text-white font-headline font-bold text-lg">Gourmet Burgers</h3>
+</div>
+</div>
+</section>
+<!-- Trending Restaurants (Horizontal Scroll) -->
+<section class="py-8 bg-surface-container-low">
+<div class="px-6 flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline font-extrabold text-2xl tracking-tight">Trending Now</h2>
+<p class="text-outline text-sm">Most ordered in your area today</p>
+</div>
+</div>
+<div class="flex overflow-x-auto gap-6 px-6 hide-scrollbar pb-4">
+<!-- Card 1 -->
+<div class="flex-none w-72 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<div class="h-40 relative">
+<img alt="The Golden Fork" class="w-full h-full object-cover" data-alt="upscale modern restaurant interior with warm ambient lighting and elegant table settings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQuDUNVMRwt8zmVqFO1tBWBVegM0m3XXJD2CwpsEGWE1Z3I45rtPWhmIRsZH6tHxt0kUYIyXwMqCyg3K1BWFYBfz5lbv21cumfeW4m9iDMeGAvHWzVaEWZ39x59E308P4dcBTMBI0ZQNLdez-N-pDIkBOQtCf5kw0071wv9sJf12JI679OrHbZgoMboRDH7ddBKWCfBjvRIqBAOcjNvscmVQo6Us-Yd5ao9HlGTKM1qPe9UFjn9p1Yg_7eNt100myE_f9IKBFrFA"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-xl flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.8</span>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-headline font-bold text-lg text-on-surface">The Golden Fork</h4>
+<div class="flex items-center gap-2 text-outline text-xs mt-1">
+<span>French • Bistro</span>
+<span>•</span>
+<span>25-35 min</span>
+</div>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-primary font-bold text-sm">Free Delivery</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex-none w-72 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<div class="h-40 relative">
+<img alt="Neon Ramen" class="w-full h-full object-cover" data-alt="interior of a trendy neon-lit ramen shop with steaming bowls of noodles, urban nighttime aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr7HPFO9dS8Zfj1Fme9sitOFDiDtbNBDw5-ujnqomH9JVYCx37GC6e38t_Cf1V05qH5_fUdAHKrLobFlpmkgjiCL7LDz8adtsI5heNukhvMsMPuz0homEz7Ke5J8-eKsIXY79MiycTaILPDKwOPUC_6R8aFI7In5KZJWLmDTm_3u-xrK9N9KL7JCivnRc9OmN5xOcU--WwWdweDiYNxxqUZ605KBcVL8F3K5C0qOwV78ll6-ib0TaxN_pcUjjRidkPe9l32o4Lqg"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-xl flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.9</span>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-headline font-bold text-lg text-on-surface">Neon Ramen</h4>
+<div class="flex items-center gap-2 text-outline text-xs mt-1">
+<span>Japanese • Soul Food</span>
+<span>•</span>
+<span>15-20 min</span>
+</div>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-on-surface-variant font-medium text-sm">$2.99 Delivery</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex-none w-72 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<div class="h-40 relative">
+<img alt="Green Garden" class="w-full h-full object-cover" data-alt="fresh vibrant salad bar with numerous colorful ingredients, bright natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNaluuLJtmCVp4a-aN3b78Y3SR8wPExzpULl9gNQgbKFbkdLSvQmykagOA4ZtowoYWiCl8mGTfyqwEyUGHVPvGfVeEVn-sAmAw8Bqc9IFWzH-onxXdHEJqWg0c_DODdMUAlhRUEAeEQ2DV66Qo6pIO9xrEjgYzoF6GmTGtTzjE1iZPJzNGxsza7DdD9zDzv3r_-8tUXZvAEEib3clOzCCx0nhjlVfsWGf51LPQSDNKKFZnj3nbUJOd7yU2YG5CFa0RQL9G3UTwzw"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-xl flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.6</span>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-headline font-bold text-lg text-on-surface">Green Garden</h4>
+<div class="flex items-center gap-2 text-outline text-xs mt-1">
+<span>Vegan • Organic</span>
+<span>•</span>
+<span>20-30 min</span>
+</div>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-primary font-bold text-sm">Free Delivery</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Filters -->
+<section class="px-6 py-8">
+<h2 class="font-headline font-bold text-sm uppercase tracking-widest text-outline mb-6">Quick Filters</h2>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<button class="p-4 rounded-2xl bg-surface-container border border-outline-variant/10 flex flex-col items-center gap-2 text-on-surface-variant hover:bg-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="electric_bolt">electric_bolt</span>
+<span class="text-xs font-bold">Fastest</span>
+</button>
+<button class="p-4 rounded-2xl bg-surface-container border border-outline-variant/10 flex flex-col items-center gap-2 text-on-surface-variant hover:bg-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-xs font-bold">Budget</span>
+</button>
+<button class="p-4 rounded-2xl bg-surface-container border border-outline-variant/10 flex flex-col items-center gap-2 text-on-surface-variant hover:bg-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="text-xs font-bold">Top Rated</span>
+</button>
+<button class="p-4 rounded-2xl bg-surface-container border border-outline-variant/10 flex flex-col items-center gap-2 text-on-surface-variant hover:bg-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+<span class="text-xs font-bold">Eco-friendly</span>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl z-50 rounded-t-3xl shadow-[0_-4px_24px_rgba(0,0,0,0.06)]">
+<!-- Explore -->
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 px-4 py-2 hover:text-blue-500 transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-inter text-[11px] font-bold uppercase tracking-widest">Explore</span>
+</a>
+<!-- Search (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-2xl px-4 py-2 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="font-inter text-[11px] font-bold uppercase tracking-widest">Search</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 px-4 py-2 hover:text-blue-500 transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="font-inter text-[11px] font-bold uppercase tracking-widest">Orders</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 px-4 py-2 hover:text-blue-500 transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-inter text-[11px] font-bold uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

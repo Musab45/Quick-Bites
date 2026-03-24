@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Cart - QuickBite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#dbe1ff",
+              "on-background": "#191c1e",
+              "background": "#f8f9fb",
+              "surface-variant": "#e1e2e4",
+              "secondary-fixed": "#ffdbca",
+              "on-primary-fixed": "#00174b",
+              "tertiary-container": "#bc4800",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadc",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffdbcd",
+              "surface-container-low": "#f3f4f6",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "secondary": "#9d4300",
+              "on-tertiary-container": "#ffede6",
+              "surface-bright": "#f8f9fb",
+              "primary-container": "#2563eb",
+              "on-secondary-container": "#5c2400",
+              "on-error-container": "#93000a",
+              "surface": "#f8f9fb",
+              "outline-variant": "#c3c6d7",
+              "inverse-surface": "#2e3132",
+              "secondary-container": "#fd761a",
+              "primary": "#004ac6",
+              "surface-tint": "#0053db",
+              "outline": "#737686",
+              "secondary-fixed-dim": "#ffb690",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-secondary-fixed-variant": "#783200",
+              "surface-container-high": "#e7e8ea",
+              "on-tertiary-fixed": "#360f00",
+              "on-primary-container": "#eeefff",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-primary": "#ffffff",
+              "surface-container-highest": "#e1e2e4",
+              "tertiary": "#943700",
+              "on-surface": "#191c1e",
+              "inverse-on-surface": "#f0f1f3",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-container": "#edeef0",
+              "on-secondary-fixed": "#341100",
+              "on-primary-fixed-variant": "#003ea8"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fb;
+      }
+      .font-headline {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar - Manual Construction based on JSON instructions -->
+<header class="bg-white dark:bg-slate-950 flex items-center justify-between w-full px-4 h-16 fixed top-0 z-50">
+<div class="flex items-center gap-4 w-full">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex-1 flex justify-center pr-10">
+<h1 class="font-['Plus_Jakarta_Sans'] font-semibold text-lg tracking-tight text-on-surface">My Cart</h1>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-32 px-4 max-w-2xl mx-auto space-y-6">
+<!-- Cart Items List -->
+<section class="space-y-4">
+<h2 class="font-headline text-on-surface-variant text-sm font-bold uppercase tracking-widest px-1">Your Selection</h2>
+<div class="space-y-3">
+<!-- Cart Item 1 -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<div class="w-14 h-14 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Gourmet Burger" class="w-full h-full object-cover" data-alt="Juicy gourmet burger with melting cheese" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline font-semibold text-on-surface truncate">Truffle Umami Burger</h3>
+<p class="text-xs text-on-surface-variant">The Burger Collective</p>
+<div class="mt-2 flex items-center gap-3">
+<div class="flex items-center bg-surface-container-low rounded-full px-1 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-primary bg-white rounded-full shadow-sm hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-3 text-sm font-bold text-on-surface">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-primary bg-white rounded-full shadow-sm hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline font-bold text-on-surface">$16.50</p>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<div class="w-14 h-14 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Artisan Pizza" class="w-full h-full object-cover" data-alt="Handcrafted artisan pizza with fresh basil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTp90NJgx44UCArpdj5ayAiOPcidIaJIEeblKP8ap_QW7BZFDKnxhIvv2KC70xfzNcB-d_dkzatlhqzhWbDZuDxn9mPfIUOgYz9FLeCS6NMEfDTVzQHkBdgt4ahVpPg14MZrIS2H1mMN4mhFHEGQK9wImUchwZg-MjT4xtSgncNp_gxIEd1H3v725LFEY_pn7s_AprukZ4xZcxW4YOgOu_RV0JDoKToJZgeVlNNBwg_OXVF-Ih9mkF1SE1MPo6dKqzM-pxJs9RjQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-headline font-semibold text-on-surface truncate">Margherita Classica</h3>
+<p class="text-xs text-on-surface-variant">Luigi's Neapolitan</p>
+<div class="mt-2 flex items-center gap-3">
+<div class="flex items-center bg-surface-container-low rounded-full px-1 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-primary bg-white rounded-full shadow-sm hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-3 text-sm font-bold text-on-surface">2</span>
+<button class="w-6 h-6 flex items-center justify-center text-primary bg-white rounded-full shadow-sm hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline font-bold text-on-surface">$28.00</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Order Summary Card -->
+<section class="space-y-4">
+<h2 class="font-headline text-on-surface-variant text-sm font-bold uppercase tracking-widest px-1">Bill Details</h2>
+<div class="bg-surface-container-lowest p-6 rounded-[12px] shadow-sm space-y-4">
+<div class="flex justify-between items-center text-on-surface-variant text-sm">
+<span>Subtotal</span>
+<span class="font-medium text-on-surface">$44.50</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant text-sm">
+<span>Delivery Fee</span>
+<span class="font-medium text-on-surface">$2.99</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant text-sm">
+<span>Service Fee</span>
+<span class="font-medium text-on-surface">$1.50</span>
+</div>
+<div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
+<span class="font-headline font-bold text-on-surface text-lg">Total Amount</span>
+<span class="font-headline font-extrabold text-primary text-xl">$48.99</span>
+</div>
+</div>
+</section>
+<!-- Promotional Banner -->
+<div class="bg-secondary-fixed text-on-secondary-fixed-variant p-4 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<p class="text-xs font-medium">You're saving $4.50 with current active promotions!</p>
+</div>
+</main>
+<!-- Bottom Fixed Action Bar -->
+<footer class="fixed bottom-0 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-4 shadow-[0_-4px_12px_0_rgba(0,0,0,0.05)] flex flex-col gap-4 z-50">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<span class="text-xs font-semibold text-on-surface">Delivery to <span class="text-primary">Home (Central Park)</span></span>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wider">Change</button>
+</div>
+<button class="w-full bg-primary hover:bg-on-primary-fixed-variant text-on-primary py-4 rounded-xl font-headline font-bold text-center transition-all active:scale-95">
+            Proceed to Checkout
+        </button>
+</footer>
+<!-- Bottom Navigation Spacing -->
+<div class="h-[120px]"></div>
+</body></html>
