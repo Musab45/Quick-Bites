@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/providers/core_providers.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -12,6 +15,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
   int _index = 0;
 
   static const _slides = <({String title, String description, String imageUrl})>[
@@ -113,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   right: AppSpacing.sm,
                 ),
                 child: TextButton(
-                  onPressed: () => context.go('/home'),
+                  onPressed: _finishOnboarding,
                   child: Text(
                     'Skip',
                     style: textTheme.labelLarge?.copyWith(
@@ -199,7 +203,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         onPressed: () {
                           if (isLast) {
-                            context.go('/home');
+                            _finishOnboarding();
                           } else {
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 250),
@@ -220,5 +224,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _finishOnboarding() async {
+    await _storage.write(key: onboardingCompletedStorageKey, value: 'true');
+    final container = ProviderScope.containerOf(context, listen: false);
+    container.invalidate(onboardingStatusProvider);
+    if (!mounted) {
+      return;
+    }
+    context.go('/splash');
   }
 }

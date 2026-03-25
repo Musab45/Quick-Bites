@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
+import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
@@ -18,6 +20,16 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   final _addressController = TextEditingController(text: '123 Test Street');
   String _paymentMethod = 'card';
   bool _isSubmitting = false;
+
+  void _showAddressFeaturePending() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Saved address selection is coming soon. You can still edit the delivery address below.',
+        ),
+      ),
+    );
+  }
 
   String get _paymentMethodForApi {
     return _paymentMethod == 'wallet' ? 'card' : _paymentMethod;
@@ -99,7 +111,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     final total = subtotal + deliveryFee + serviceFee;
 
     return Scaffold(
-      appBar: AppBar(centerTitle: false, title: const Text('Checkout')),
+      appBar: QuickBiteAppBars.checkout(
+        title: 'Checkout',
+        stepLabel: 'STEP 2 OF 3: PAYMENT',
+        progress: 2 / 3,
+        onClose: () => context.pop(),
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.sm,
@@ -129,7 +146,10 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                       ),
                     ),
                     const Spacer(),
-                    TextButton(onPressed: () {}, child: const Text('Change')),
+                    TextButton(
+                      onPressed: _showAddressFeaturePending,
+                      child: const Text('Change'),
+                    ),
                   ],
                 ),
                 const Gap(8),
@@ -139,9 +159,6 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: colorScheme.outlineVariant.withValues(alpha: 0.4),
-                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,26 +330,32 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         top: false,
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.sm),
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerLowest.withValues(alpha: 0.88),
-              borderRadius: BorderRadius.circular(AppRadius.card),
-            ),
-            child: FilledButton.icon(
-              onPressed: _isSubmitting ? null : _submitOrder,
-              icon: const Icon(Icons.arrow_forward),
-              iconAlignment: IconAlignment.end,
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(54),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerLowest.withValues(alpha: 0.8),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-              ),
-              label: Text(
-                _isSubmitting
-                    ? 'Placing Order...'
-                    : 'Place Order — \$${total.toStringAsFixed(2)}',
+                child: FilledButton.icon(
+                  onPressed: _isSubmitting ? null : _submitOrder,
+                  icon: const Icon(Icons.arrow_forward),
+                  iconAlignment: IconAlignment.end,
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  label: Text(
+                    _isSubmitting
+                        ? 'Placing Order...'
+                        : 'Place Order — \$${total.toStringAsFixed(2)}',
+                  ),
+                ),
               ),
             ),
           ),
@@ -358,9 +381,9 @@ class _SectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.card),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.onSurface.withValues(alpha: 0.04),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: colorScheme.onSurface.withValues(alpha: 0.06),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -393,14 +416,8 @@ class _PaymentOption extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.button),
-          border: Border.all(
-            width: selected ? 2 : 1,
-            color: selected
-                ? colorScheme.primary
-                : colorScheme.outlineVariant.withValues(alpha: 0),
-          ),
           color: selected
-              ? colorScheme.surfaceContainerLowest
+              ? colorScheme.primaryContainer.withValues(alpha: 0.35)
               : colorScheme.surfaceContainerLow,
         ),
         child: Row(

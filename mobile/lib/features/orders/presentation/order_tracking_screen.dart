@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/core/widgets/state_widgets.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
@@ -31,23 +33,22 @@ class OrderTrackingScreen extends ConsumerWidget {
     final orderAsync = ref.watch(orderTrackingProvider(orderId));
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text('Track Order'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Center(
-              child: Text(
-                'QuickBite',
-                style: textTheme.titleMedium?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                ),
+      appBar: QuickBiteAppBars.contextual(
+        title: 'Track Order',
+        subtitle: 'LIVE STATUS',
+        onBack: () => context.go('/orders'),
+        trailing: Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Center(
+            child: Text(
+              'QuickBite',
+              style: textTheme.titleMedium?.copyWith(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
-        ],
+        ),
       ),
       body: orderAsync.when(
         data: (order) {
@@ -98,7 +99,8 @@ class OrderTrackingScreen extends ConsumerWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: colorScheme.surfaceContainerLowest.withValues(alpha: 0.85),
+                              color: colorScheme.surfaceContainerLowest
+                                  .withValues(alpha: 0.85),
                               borderRadius: BorderRadius.circular(99),
                             ),
                             child: Row(
@@ -241,8 +243,8 @@ class OrderTrackingScreen extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.onSurface.withValues(alpha: 0.04),
-                          blurRadius: 20,
+                          color: colorScheme.onSurface.withValues(alpha: 0.06),
+                          blurRadius: 24,
                           offset: const Offset(0, 8),
                         ),
                       ],
@@ -344,7 +346,9 @@ class OrderTrackingScreen extends ConsumerWidget {
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: colorScheme.onSecondaryContainer.withValues(alpha: 0.2),
+                          color: colorScheme.onSecondaryContainer.withValues(
+                            alpha: 0.2,
+                          ),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -377,10 +381,19 @@ class OrderTrackingScreen extends ConsumerWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Courier details are coming soon.',
+                              ),
+                            ),
+                          );
+                        },
                         style: TextButton.styleFrom(
                           foregroundColor: colorScheme.onSecondaryContainer,
-                          backgroundColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.12),
+                          backgroundColor: colorScheme.onSecondaryContainer
+                              .withValues(alpha: 0.12),
                         ),
                         child: const Text('Details'),
                       ),

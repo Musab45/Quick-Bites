@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/core/widgets/loading_card_shimmer.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
@@ -30,48 +31,10 @@ class HomeScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.location_on, size: 18, color: colorScheme.primary),
-            const Gap(4),
-            Text('San Francisco', style: textTheme.titleMedium),
-            const Gap(2),
-            Icon(
-              Icons.keyboard_arrow_down,
-              size: 18,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ],
-        ),
-        actions: [
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () => context.push('/cart'),
-                icon: const Icon(Icons.shopping_cart_outlined),
-              ),
-              if (cartCount > 0)
-                Positioned(
-                  right: 8,
-                  top: 8,
-                  child: CircleAvatar(
-                    radius: 9,
-                    backgroundColor: colorScheme.secondaryContainer,
-                    child: Text(
-                      '$cartCount',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: colorScheme.onSecondaryContainer,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const Gap(8),
-        ],
+      appBar: QuickBiteAppBars.home(
+        locationLabel: 'San Francisco',
+        cartCount: cartCount,
+        onCartTap: () => context.push('/cart'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
@@ -204,7 +167,7 @@ class HomeScreen extends ConsumerWidget {
                             letterSpacing: 1.0,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => context.go('/search'),
                         child: const Text('Order Now'),
                       ),
                     ),
@@ -222,7 +185,10 @@ class HomeScreen extends ConsumerWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                TextButton(onPressed: () {}, child: const Text('View All')),
+                TextButton(
+                  onPressed: () => context.go('/search'),
+                  child: const Text('View All'),
+                ),
               ],
             ),
             const Gap(AppSpacing.sm),
@@ -261,7 +227,9 @@ class HomeScreen extends ConsumerWidget {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: colorScheme.onSurface.withValues(alpha: 0.08),
+                                    color: colorScheme.onSurface.withValues(
+                                      alpha: 0.08,
+                                    ),
                                     blurRadius: 8,
                                     offset: Offset(0, 3),
                                   ),
@@ -287,7 +255,8 @@ class HomeScreen extends ConsumerWidget {
                                           errorWidget: (context, url, error) =>
                                               Container(
                                                 height: 140,
-                                                color: colorScheme.surfaceContainerLow,
+                                                color: colorScheme
+                                                    .surfaceContainerLow,
                                                 child: const Icon(
                                                   Icons.broken_image_outlined,
                                                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/widgets/main_nav_scaffold.dart';
 import 'package:mobile/data/services/api_service.dart';
@@ -20,9 +21,18 @@ import 'package:mobile/providers/auth_providers.dart';
 
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
+const onboardingCompletedStorageKey = 'onboarding_completed';
+
+final onboardingStatusProvider = FutureProvider<bool>((ref) async {
+  const storage = FlutterSecureStorage();
+  final value = await storage.read(key: onboardingCompletedStorageKey);
+  return value == 'true';
+});
+
 final appRouterProvider = Provider<GoRouter>(
   (ref) {
     final auth = ref.watch(authNotifierProvider);
+    final onboardingStatus = ref.watch(onboardingStatusProvider);
     final protectedPaths = <String>{
       '/checkout',
       '/order-confirmation',
@@ -33,8 +43,23 @@ final appRouterProvider = Provider<GoRouter>(
     return GoRouter(
       initialLocation: '/splash',
       redirect: (context, state) {
-        if (!auth.initialized) {
+        if (!auth.initialized || onboardingStatus.isLoading) {
           return state.matchedLocation == '/splash' ? null : '/splash';
+        }
+
+        final hasSeenOnboarding = onboardingStatus.value ?? false;
+        final isSplash = state.matchedLocation == '/splash';
+        final isOnboarding = state.matchedLocation == '/onboarding';
+
+        if (!hasSeenOnboarding) {
+          if (isOnboarding) {
+            return null;
+          }
+          return '/onboarding';
+        }
+
+        if (isSplash || isOnboarding) {
+          return auth.isAuthenticated ? '/home' : '/login';
         }
 
         final isAuthRoute = state.matchedLocation == '/login' || state.matchedLocation == '/register';
@@ -61,7 +86,13 @@ final appRouterProvider = Provider<GoRouter>(
             return LoginScreen(fromPath: from);
           },
         ),
-        GoRoute(path: '/register', builder: (context, state) => const RegisterScreen()),
+        GoRoute(
+          path: '/register',
+          builder: (context, state) {
+            final from = state.uri.queryParameters['from'];
+            return RegisterScreen(fromPath: from);
+          },
+        ),
         ShellRoute(
           builder: (context, state, child) {
             return MainNavScaffold(location: state.matchedLocation, child: child);
@@ -83,7 +114,10 @@ final appRouterProvider = Provider<GoRouter>(
           path: '/order-tracking/:id',
           builder: (context, state) {
             final id = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
-            return OrderTrackingScreen(orderId: id);
+            return MainNavScaffold(
+              location: '/orders',
+              child: OrderTrackingScreen(orderId: id),
+            );
           },
         ),
         GoRoute(

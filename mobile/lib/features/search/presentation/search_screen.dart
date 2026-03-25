@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
+import 'package:mobile/providers/browse_providers.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   static const _recentSearches = ['Artisan Pizza', 'Vegan Bowls', 'Thai Tea'];
   static const _quickFilters = [
     ('Fastest', Icons.electric_bolt),
@@ -21,6 +25,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final _queryController = TextEditingController();
 
+  void _showComingSoon(String feature) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('$feature is coming soon.')),
+    );
+  }
+
   @override
   void dispose() {
     _queryController.dispose();
@@ -29,36 +39,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartCount = ref.watch(cartCountProvider);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Search',
-          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.sm),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: colorScheme.surfaceContainerHigh,
-              child: ClipOval(
-                child: Image.network(
-                  'https://lh3.googleusercontent.com/aida-public/AB6AXuATn1LIzS5MPm_ZDCLatr2XwsmGbsUp0smQuj6DQREAykcUexz1bGHrsfr7aepJ4cAKGx8vsa6yN9tLkTSyV8AmeLPOEPK9hFqxbMYG7IGTzOMDMq7FBgpu7wKJqDHKtX66gtQuaSZpMchf8y3OdDbyehMnTeS4Xk4Vn4sE7x-0O5YWEvC6i7bEt4hWSUHrIY6y4jdt8enN7snwTQz5t_cQoTioUwIjsqxN8hu3KpYGBOQEUYQiYbqhn03qajXHZLM60yUXAJX6Gg',
-                  fit: BoxFit.cover,
-                  width: 36,
-                  height: 36,
-                  errorBuilder: (context, error, stackTrace) => Icon(
-                    Icons.person,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+      appBar: QuickBiteAppBars.home(
+        locationLabel: 'San Francisco',
+        cartCount: cartCount,
+        onCartTap: () => context.push('/cart'),
       ),
       body: ListView(
         padding: const EdgeInsets.only(bottom: AppSpacing.lg),
@@ -77,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'Search for sushi, burgers, or pizza...',
                 prefixIcon: Icon(Icons.search, color: colorScheme.outline),
                 suffixIcon: IconButton(
-                  onPressed: () {},
+                  onPressed: () => _showComingSoon('Voice search'),
                   icon: Icon(Icons.mic_none, color: colorScheme.outline),
                 ),
                 fillColor: colorScheme.surfaceContainerLowest,
@@ -137,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   )
                   .toList(growable: false),
-              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(
@@ -154,15 +143,22 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: [
                     Text(
                       'Popular Categories',
-                      style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                      style: textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                     Text(
                       'Curated selections for your cravings',
-                      style: textTheme.bodySmall?.copyWith(color: colorScheme.outline),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.outline,
+                      ),
                     ),
                   ],
                 ),
-                TextButton(onPressed: () {}, child: const Text('See All')),
+                TextButton(
+                  onPressed: () => _showComingSoon('Category explorer'),
+                  child: const Text('See All'),
+                ),
               ],
             ),
           ),
@@ -227,7 +223,9 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.sm,
+                  ),
                   child: Row(
                     children: [
                       Expanded(
@@ -242,7 +240,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             Text(
                               'Most ordered in your area today',
-                              style: textTheme.bodySmall?.copyWith(color: colorScheme.outline),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colorScheme.outline,
+                              ),
                             ),
                           ],
                         ),
@@ -255,7 +255,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 264,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm,
+                    ),
                     children: const [
                       _TrendingCard(
                         imageUrl:
@@ -329,12 +331,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(AppRadius.card),
-                    border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.2)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(filter.$2, color: colorScheme.onSurfaceVariant, size: 18),
+                      Icon(
+                        filter.$2,
+                        color: colorScheme.onSurfaceVariant,
+                        size: 18,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         filter.$1,
@@ -411,7 +416,10 @@ class _CategoryTile extends StatelessWidget {
                 if (badge != null)
                   Container(
                     margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(999),
@@ -427,10 +435,12 @@ class _CategoryTile extends StatelessWidget {
                   ),
                 Text(
                   title,
-                  style: (large ? textTheme.headlineSmall : textTheme.titleMedium)?.copyWith(
-                    color: colorScheme.onPrimary,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style:
+                      (large ? textTheme.headlineSmall : textTheme.titleMedium)
+                          ?.copyWith(
+                            color: colorScheme.onPrimary,
+                            fontWeight: FontWeight.w800,
+                          ),
                 ),
                 if (subtitle != null)
                   Text(
@@ -502,18 +512,29 @@ class _TrendingCard extends StatelessWidget {
                   top: 10,
                   right: 10,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      color: colorScheme.surfaceContainerLowest.withValues(alpha: 0.9),
+                      color: colorScheme.surfaceContainerLowest.withValues(
+                        alpha: 0.9,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.star, size: 14, color: colorScheme.secondary),
+                        Icon(
+                          Icons.star,
+                          size: 14,
+                          color: colorScheme.secondary,
+                        ),
                         const SizedBox(width: 2),
                         Text(
                           rating,
-                          style: textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700),
+                          style: textTheme.labelSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
@@ -531,14 +552,18 @@ class _TrendingCard extends StatelessWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   '$subtitle • $eta',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodySmall?.copyWith(color: colorScheme.outline),
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.outline,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -549,8 +574,12 @@ class _TrendingCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: textTheme.labelMedium?.copyWith(
-                          color: freeDelivery ? colorScheme.primary : colorScheme.onSurfaceVariant,
-                          fontWeight: freeDelivery ? FontWeight.w700 : FontWeight.w500,
+                          color: freeDelivery
+                              ? colorScheme.primary
+                              : colorScheme.onSurfaceVariant,
+                          fontWeight: freeDelivery
+                              ? FontWeight.w700
+                              : FontWeight.w500,
                         ),
                       ),
                     ),

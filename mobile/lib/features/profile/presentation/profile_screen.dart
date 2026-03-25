@@ -5,6 +5,7 @@ import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/providers/browse_providers.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/core/widgets/state_widgets.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -26,19 +27,13 @@ class ProfileScreen extends ConsumerWidget {
         .join();
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text('Profile'),
-        leading: IconButton(
-          onPressed: () => context.go('/home'),
-          icon: Icon(Icons.arrow_back, color: colorScheme.primary),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings, color: colorScheme.onSurfaceVariant),
-          ),
-        ],
+      appBar: QuickBiteAppBars.profile(
+        title: 'My Profile',
+        onSettings: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Settings panel is coming soon.')),
+          );
+        },
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(
@@ -107,7 +102,11 @@ class ProfileScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               FilledButton.tonal(
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Profile editing is coming soon.')),
+                  );
+                },
                 style: FilledButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -131,8 +130,8 @@ class ProfileScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(AppRadius.card),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.onSurface.withValues(alpha: 0.05),
-                  blurRadius: 18,
+                  color: colorScheme.onSurface.withValues(alpha: 0.06),
+                  blurRadius: 24,
                   offset: const Offset(0, 8),
                 ),
               ],
@@ -235,8 +234,8 @@ class ProfileScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(AppRadius.card),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.onSurface.withValues(alpha: 0.05),
-                  blurRadius: 18,
+                  color: colorScheme.onSurface.withValues(alpha: 0.06),
+                  blurRadius: 24,
                   offset: const Offset(0, 8),
                 ),
               ],

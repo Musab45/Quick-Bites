@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 
@@ -31,7 +32,7 @@ class AppTheme {
       useMaterial3: true,
       scaffoldBackgroundColor: AppColors.background,
       colorScheme: colorScheme,
-      fontFamily: 'Inter',
+      fontFamily: GoogleFonts.inter().fontFamily,
       appBarTheme: AppBarTheme(
         centerTitle: false,
         elevation: 0,
@@ -42,33 +43,35 @@ class AppTheme {
       snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
     );
 
-    return base.copyWith(
-      textTheme: base.textTheme.copyWith(
-        displayLarge: const TextStyle(
-          fontSize: 44,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.88,
-          height: 1.12,
-        ),
-        headlineSmall: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.24,
-          height: 1.2,
-        ),
-        titleMedium: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.18,
-        ),
-        bodyMedium: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, height: 1.5),
-        bodySmall: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, height: 1.45),
-        labelSmall: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.55,
-        ),
+    final textTheme = base.textTheme.copyWith(
+      displayLarge: GoogleFonts.plusJakartaSans(
+        fontSize: 44,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.88,
+        height: 1.12,
       ),
+      headlineSmall: GoogleFonts.plusJakartaSans(
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.24,
+        height: 1.2,
+      ),
+      titleMedium: GoogleFonts.plusJakartaSans(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.18,
+      ),
+      bodyMedium: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, height: 1.5),
+      bodySmall: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400, height: 1.45),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 0.55,
+      ),
+    );
+
+    return base.copyWith(
+      textTheme: textTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 56),

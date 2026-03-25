@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,24 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Timer? _redirectTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    _redirectTimer = Timer(const Duration(milliseconds: 1200), () {
-      if (mounted) {
-        context.go('/onboarding');
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _redirectTimer?.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

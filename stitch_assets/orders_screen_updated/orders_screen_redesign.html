@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuickBite | Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Plus_Jakarta_Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#aa2e13",
+              "on-secondary-fixed-variant": "#912c35",
+              "secondary-fixed-dim": "#ffafaf",
+              "on-primary-fixed-variant": "#5b0d00",
+              "on-tertiary": "#feeeff",
+              "error": "#b41340",
+              "surface-variant": "#d3dcf9",
+              "on-surface": "#282f3f",
+              "secondary-dim": "#902b34",
+              "tertiary-fixed": "#dc95fb",
+              "on-tertiary-fixed": "#2c0040",
+              "primary-dim": "#992206",
+              "background": "#f5f6ff",
+              "error-container": "#f74b6d",
+              "secondary-fixed": "#ffc3c3",
+              "tertiary": "#803f9e",
+              "surface": "#f5f6ff",
+              "on-secondary-container": "#85232c",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#000000",
+              "primary-container": "#ff7859",
+              "on-error": "#ffefef",
+              "on-background": "#282f3f",
+              "surface-dim": "#c9d4f2",
+              "on-secondary": "#ffefee",
+              "inverse-primary": "#fa6746",
+              "inverse-on-surface": "#969db0",
+              "on-surface-variant": "#545b6d",
+              "tertiary-dim": "#723291",
+              "on-tertiary-container": "#50086f",
+              "outline-variant": "#a6adc1",
+              "surface-container-low": "#edf0ff",
+              "on-primary": "#ffefec",
+              "outline": "#707789",
+              "primary-fixed-dim": "#f66544",
+              "tertiary-container": "#dc95fb",
+              "primary": "#aa2e13",
+              "primary-fixed": "#ff7859",
+              "on-secondary-fixed": "#6a0d1b",
+              "tertiary-fixed-dim": "#ce88ec",
+              "inverse-surface": "#070e1d",
+              "surface-container-high": "#d9e2fd",
+              "secondary": "#a0373f",
+              "error-dim": "#a70138",
+              "surface-container": "#e1e8ff",
+              "secondary-container": "#ffc3c3",
+              "surface-container-highest": "#d3dcf9",
+              "on-primary-container": "#4a0900",
+              "on-tertiary-fixed-variant": "#5a1778",
+              "surface-bright": "#f5f6ff",
+              "on-error-container": "#510017"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<div class="mx-auto max-w-md px-6 pt-4">
+<div class="rounded-xl bg-[#fff3ef] px-4 py-3 text-xs font-semibold tracking-wide text-[#9d4300]">
+EXPERIMENTAL VARIANT: This screen is intentionally off-system (warm palette + Epilogue). Use only for exploration.
+</div>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f5f6ff]/80 dark:bg-[#1a1c1e]/80 backdrop-blur-lg">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#edf0ff]/50 active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#aa2e13]">arrow_back</span>
+</button>
+<h1 class="font-['Epilogue'] font-bold text-2xl tracking-tight text-[#282f3f]">Orders</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#edf0ff]/50 active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#aa2e13]">more_vert</span>
+</button>
+</div>
+<!-- Segmented Tabs -->
+<div class="px-6 pb-4">
+<div class="flex bg-surface-container-low p-1 rounded-xl">
+<button class="flex-1 py-2 text-sm font-bold rounded-lg bg-surface-container-lowest shadow-sm text-primary transition-all">Active</button>
+<button class="flex-1 py-2 text-sm font-semibold text-on-surface-variant transition-all">Past</button>
+</div>
+</div>
+<div class="bg-[#edf0ff] h-[1px] opacity-10"></div>
+</header>
+<main class="pt-44 pb-32 px-6 min-h-screen">
+<!-- Search & Filter Row -->
+<section class="mb-8 flex gap-3">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary/40 placeholder:text-outline text-sm" placeholder="Search orders..." type="text"/>
+</div>
+<button class="w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-xl active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface">tune</span>
+</button>
+</section>
+<!-- Orders List -->
+<div class="space-y-6">
+<!-- Card 1: Active -->
+<article class="relative bg-surface-container-lowest rounded-2xl p-5 shadow-[0_8px_30px_rgb(40,47,63,0.04)] border border-outline-variant/10 overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up of a juicy gourmet burger with fresh lettuce and melting cheese against a bright orange background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_iEqHUDeCBMwTafTG4WiElTUAyugjy-gbVg4GvepN_51s2w69SEIZtipV9zdQEjsXy1MWOrF0IEpH0P1kHz9fJlgTEhvg1hN95Or5WPEWWtsS1J8U5UFLrlu3-y1ZQbNdfwLEAlvSqVmgdmxvC5byhlWtm19ebcxSKNzFyFrowNNkUI2052kMXBrULCTweHKJVAwMFWJUL956UEqISvVCNukn3-eOLYol6VLLzkGEASjR8wf1rzEe-bCQ708GXvgITH-vMHB2uA"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Burger King</h3>
+<p class="text-xs text-on-surface-variant font-medium mt-1">Order #8821</p>
+</div>
+</div>
+<div class="bg-primary-container/20 text-primary px-3 py-1 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Preparing</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-4 mb-5">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-lg">schedule</span>
+<span class="text-sm font-semibold">ETA 12:45 PM</span>
+</div>
+<span class="text-sm font-extrabold text-primary">$42.50</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">2x Whopper Meal, 1x Onion Rings</p>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 active:scale-95 duration-200">
+                        Track Order
+                    </button>
+<button class="px-5 py-3 text-primary font-bold rounded-xl bg-surface hover:bg-surface-container transition-colors active:scale-95 duration-200">
+                        Details
+                    </button>
+</div>
+</article>
+<!-- Card 2: Past -->
+<article class="bg-surface-container-lowest rounded-2xl p-5 shadow-[0_4px_20px_rgb(40,47,63,0.02)] border border-outline-variant/10">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Rustic pepperoni pizza on a wooden board with warm lighting and scattered flour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-FSfWkUe1EKFsBvmGhpvSkGmThZVrn7cWot7V0pStxBwj3xj7D98a7xt-1YC2STo7DA62RIreSc2-a_bwKQte6vPbI7PSuTCjLHs7-UaEaxmzEF-eJ7uPBfh-KAsoYZjOhPrfl3zSsxHCpSO2XvHD_HJ7aX7noVeyU8sVsVq1fV5VK0OvmJzd4UxXaVYTrCPO3gq6lYRpSD5qXzSjRF0XeR4mdMgUTbGVa110okw5KeOqGDblNGewhFwZCLPgiL_QoDw5lB8jXg"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Luigi's Pizzeria</h3>
+<p class="text-xs text-on-surface-variant font-medium mt-1">Oct 12 • #7742</p>
+</div>
+</div>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Delivered</span>
+</div>
+</div>
+<div class="mb-5">
+<p class="text-sm font-medium text-on-surface-variant">1x Margherita, 1x Coke</p>
+<div class="mt-2 flex justify-between items-baseline">
+<span class="text-xs text-outline">Total Paid</span>
+<span class="text-base font-bold text-on-surface">$34.50</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-3 border-2 border-primary-container text-primary font-bold rounded-xl active:scale-95 duration-200">
+                        Reorder
+                    </button>
+<button class="px-5 py-3 text-on-surface-variant font-semibold rounded-xl bg-surface hover:bg-surface-container transition-colors active:scale-95 duration-200">
+                        Details
+                    </button>
+</div>
+</article>
+<!-- Card 3: Past (Minimal) -->
+<article class="bg-surface-container-lowest rounded-2xl p-5 shadow-[0_4px_20px_rgb(40,47,63,0.02)] border border-outline-variant/5">
+<div class="flex justify-between items-center">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Artistic arrangement of fresh sushi rolls on a dark slate plate with ginger and wasabi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARBAVvsLEN8qHqkZfn3aR8sy4DeWBYq5P6APa7hB5WjpyLLXRx2XTBZ_zX15CJ-g3FAilNTTEx_riKLIGauWi16-2E_tkpEKzPoQ7pkirViAvc-EhGRWXdMQyhSSpR1s0-RIfSL71i53BARflnDA9fFTIglQizwvKuXO31O0SRBBeJyNafuSc2CsYWb304USNMAVP7lE5Usm9hnCaaQXEfw73pqnB0j_Vvpl9tda7x9Jq--At16wXJZLDJJDflWJcZPdt_ZexumA"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-md leading-none">Sakura Sushi</h3>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Oct 08 • $52.00</p>
+</div>
+</div>
+<button class="h-10 px-4 border border-primary-container text-primary text-sm font-bold rounded-lg active:scale-95 transition-all">
+                        Reorder
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/85 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_20px_rgba(40,47,63,0.04)] z-50">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-[#545b6d] px-4 py-2 hover:text-[#aa2e13] transition-all active:scale-90 duration-300 ease-out" href="../home_feed/home_feed.html">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px] uppercase tracking-wider">Home</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-[#545b6d] px-4 py-2 hover:text-[#aa2e13] transition-all active:scale-90 duration-300 ease-out" href="../search_screen_updated/search_screen_updated.html">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px] uppercase tracking-wider">Search</span>
+</a>
+<!-- Orders (Active) -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#aa2e13] to-[#ff7859] text-white rounded-[16px] px-5 py-2 scale-110 shadow-lg shadow-[#ff7859]/20 active:scale-90 duration-300 ease-out" href="../orders_screen_updated/orders_screen_redesign.html">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px] uppercase tracking-wider">Orders</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-[#545b6d] px-4 py-2 hover:text-[#aa2e13] transition-all active:scale-90 duration-300 ease-out" href="../profile_screen/profile_screen.html">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px] uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+<!-- FAB (Suppressed on this focused details/list page as per rules, but shown here for UI completeness of an order journey) -->
+<!-- Suppressed -->
+</body></html>

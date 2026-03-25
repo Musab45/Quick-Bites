@@ -40,19 +40,13 @@ We pair the geometric confidence of **Plus Jakarta Sans** (Display/Headlines) wi
 
 *Note: While the initial brief suggested Poppins, we have elevated the Headline font to Plus Jakarta Sans for a more modern, editorial weight.*
 
-| Level | Token | Font | Size | Case/Tracking |
-
-| :--- | :--- | :--- | :--- | :--- |
-
-| **Display** | `display-md` | Plus Jakarta Sans | 2.75rem | -2% Tracking |
-
-| **Headline** | `headline-sm` | Plus Jakarta Sans | 1.5rem | Tight (120%) |
-
-| **Title** | `title-md` | Inter (Medium) | 1.125rem | -1% Tracking |
-
-| **Body** | `body-md` | Inter (Regular) | 0.875rem | Normal (150%) |
-
-| **Label** | `label-sm` | Inter (Bold) | 0.6875rem | +5% All Caps |
+| Level              | Token           | Font              | Size      | Case/Tracking |
+| :----------------- | :-------------- | :---------------- | :-------- | :------------ |
+| **Display**  | `display-md`  | Plus Jakarta Sans | 2.75rem   | -2% Tracking  |
+| **Headline** | `headline-sm` | Plus Jakarta Sans | 1.5rem    | Tight (120%)  |
+| **Title**    | `title-md`    | Inter (Medium)    | 1.125rem  | -1% Tracking  |
+| **Body**     | `body-md`     | Inter (Regular)   | 0.875rem  | Normal (150%) |
+| **Label**    | `label-sm`    | Inter (Bold)      | 0.6875rem | +5% All Caps  |
 
 **The Typography Logic:** Use `display-md` for promotional headlines to create a "magazine cover" feel. `Body-md` is optimized for ingredient lists and descriptions, ensuring high readability on OLED mobile screens.
 

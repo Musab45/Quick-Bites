@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
 class CartScreen extends ConsumerWidget {
@@ -22,7 +23,12 @@ class CartScreen extends ConsumerWidget {
     final total = subtotal + deliveryFee + serviceFee;
 
     return Scaffold(
-      appBar: AppBar(centerTitle: false, title: const Text('My Cart')),
+      appBar: QuickBiteAppBars.checkout(
+        title: 'Checkout',
+        stepLabel: 'STEP 1 OF 3: CART',
+        progress: 1 / 3,
+        onClose: () => context.pop(),
+      ),
       body: cart.isEmpty
           ? Center(
               child: Text(
@@ -59,9 +65,11 @@ class CartScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(AppRadius.card),
                         boxShadow: [
                           BoxShadow(
-                            color: colorScheme.onSurface.withValues(alpha: 0.05),
-                            blurRadius: 6,
-                            offset: const Offset(0, 2),
+                            color: colorScheme.onSurface.withValues(
+                              alpha: 0.06,
+                            ),
+                            blurRadius: 24,
+                            offset: const Offset(0, 8),
                           ),
                         ],
                       ),
@@ -204,9 +212,9 @@ class CartScreen extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(AppRadius.card),
                     boxShadow: [
                       BoxShadow(
-                        color: colorScheme.onSurface.withValues(alpha: 0.05),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
+                        color: colorScheme.onSurface.withValues(alpha: 0.06),
+                        blurRadius: 24,
+                        offset: const Offset(0, 8),
                       ),
                     ],
                   ),
@@ -287,7 +295,15 @@ class CartScreen extends ConsumerWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Address management is coming soon. You can update the drop-off address on checkout.',
+                                  ),
+                                ),
+                              );
+                            },
                             child: const Text('Change'),
                           ),
                         ],

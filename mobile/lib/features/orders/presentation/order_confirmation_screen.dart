@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_colors.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
 class OrderConfirmationScreen extends ConsumerWidget {
@@ -17,24 +18,22 @@ class OrderConfirmationScreen extends ConsumerWidget {
 
     if (order == null) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: QuickBiteAppBars.checkout(
+          title: 'Checkout',
+          stepLabel: 'STEP 3 OF 3: CONFIRMED',
+          progress: 1,
+          onClose: () => context.go('/home'),
+        ),
         body: const Center(child: Text('No recent order found.')),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.go('/home'),
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: Text(
-          'QuickBite',
-          style: textTheme.titleLarge?.copyWith(
-            color: colorScheme.primary,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+      appBar: QuickBiteAppBars.checkout(
+        title: 'Checkout',
+        stepLabel: 'STEP 3 OF 3: CONFIRMED',
+        progress: 1,
+        onClose: () => context.go('/home'),
       ),
       body: Center(
         child: Stack(
@@ -178,7 +177,10 @@ class OrderConfirmationScreen extends ConsumerWidget {
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.schedule, color: colorScheme.secondary),
+                        child: Icon(
+                          Icons.schedule,
+                          color: colorScheme.secondary,
+                        ),
                       ),
                       const Gap(12),
                       Expanded(
@@ -230,7 +232,6 @@ class OrderConfirmationScreen extends ConsumerWidget {
                   ),
                   child: const Text('Back to Home'),
                 ),
-                
               ],
             ),
           ],

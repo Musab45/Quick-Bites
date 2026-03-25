@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/data/models/menu_item.dart';
 import 'package:mobile/data/models/restaurant.dart';
 import 'package:mobile/providers/browse_providers.dart';
@@ -26,51 +28,66 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final menuAsync = ref.watch(menuByRestaurantProvider(widget.restaurantId));
-    final restaurantAsync = ref.watch(restaurantByIdProvider(widget.restaurantId));
+    final restaurantAsync = ref.watch(
+      restaurantByIdProvider(widget.restaurantId),
+    );
     final cartCount = ref.watch(cartCountProvider);
     final cart = ref.watch(cartProvider);
     final restaurantName = restaurantAsync.valueOrNull?.name ?? 'QuickBite';
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: Text(restaurantName, style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
-        actions: [
-          IconButton(onPressed: () => context.go('/search'), icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.share_outlined)),
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () => context.push('/cart'),
-                icon: const Icon(Icons.shopping_cart_outlined),
-              ),
-              if (cartCount > 0)
-                Positioned(
-                  right: 8,
-                  top: 8,
-                  child: CircleAvatar(
-                    radius: 9,
-                    backgroundColor: colorScheme.secondaryContainer,
-                    child: Text(
-                      '$cartCount',
-                      style: TextStyle(fontSize: 11, color: colorScheme.onSecondaryContainer),
+      appBar: QuickBiteAppBars.contextual(
+        title: restaurantName,
+        subtitle: 'MENU',
+        onBack: () => context.pop(),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: () => context.go('/search'),
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Share menu is coming soon.')),
+                );
+              },
+              icon: const Icon(Icons.share_outlined),
+            ),
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () => context.push('/cart'),
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                ),
+                if (cartCount > 0)
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: CircleAvatar(
+                      radius: 9,
+                      backgroundColor: colorScheme.secondaryContainer,
+                      child: Text(
+                        '$cartCount',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: colorScheme.onSecondaryContainer,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-            ],
-          ),
-          const Gap(6),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
       body: menuAsync.when(
         data: (groupedMenu) {
           final categories = groupedMenu.keys.toList(growable: false);
           selectedCategory ??= categories.isEmpty ? null : categories.first;
-          final visibleItems = groupedMenu[selectedCategory] ?? const <MenuItem>[];
+          final visibleItems =
+              groupedMenu[selectedCategory] ?? const <MenuItem>[];
 
           if (categories.isEmpty) {
             return const Center(child: Text('No menu available.'));
@@ -83,7 +100,9 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
               NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
-                    SliverToBoxAdapter(child: _RestaurantHeader(restaurant: headerRestaurant)),
+                    SliverToBoxAdapter(
+                      child: _RestaurantHeader(restaurant: headerRestaurant),
+                    ),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: _CategoryTabsDelegate(
@@ -91,18 +110,24 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                         maxHeight: 56,
                         child: Container(
                           color: colorScheme.surfaceContainerLowest,
-                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.sm,
+                          ),
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount: categories.length,
-                            separatorBuilder: (context, index) => const SizedBox(width: 20),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 20),
                             itemBuilder: (context, index) {
                               final category = categories[index];
                               final isActive = category == selectedCategory;
                               return InkWell(
-                                onTap: () => setState(() => selectedCategory = category),
+                                onTap: () =>
+                                    setState(() => selectedCategory = category),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -112,17 +137,23 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                                           color: isActive
                                               ? colorScheme.primary
                                               : colorScheme.onSurfaceVariant,
-                                          fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                                          fontWeight: isActive
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
                                         ),
                                       ),
                                       const Gap(3),
                                       AnimatedContainer(
-                                        duration: const Duration(milliseconds: 200),
+                                        duration: const Duration(
+                                          milliseconds: 200,
+                                        ),
                                         width: isActive ? 28 : 0,
                                         height: 2,
                                         decoration: BoxDecoration(
                                           color: colorScheme.primary,
-                                          borderRadius: BorderRadius.circular(2),
+                                          borderRadius: BorderRadius.circular(
+                                            2,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -144,14 +175,17 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                     120,
                   ),
                   itemCount: visibleItems.length + 1,
-                  separatorBuilder: (context, index) => const SizedBox(height: 12),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     if (index == 0) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 4),
                         child: Text(
                           'Popular $selectedCategory',
-                          style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                          style: textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       );
                     }
@@ -167,57 +201,73 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                   child: InkWell(
                     onTap: () => context.push('/cart'),
                     borderRadius: BorderRadius.circular(16),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.92),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: colorScheme.onPrimary.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: colorScheme.surfaceContainerLowest.withValues(
+                              alpha: 0.8,
                             ),
-                            child: Text(
-                              '$cartCount',
-                              style: textTheme.labelMedium?.copyWith(
-                                color: colorScheme.onPrimary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          const Gap(10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'View Cart',
-                                  style: textTheme.labelLarge?.copyWith(
-                                    color: colorScheme.onPrimary,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: colorScheme.primary.withValues(
+                                    alpha: 0.12,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  '$cartCount',
+                                  style: textTheme.labelMedium?.copyWith(
+                                    color: colorScheme.primary,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Text(
-                                  restaurantName,
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onPrimary.withValues(alpha: 0.88),
-                                  ),
+                              ),
+                              const Gap(10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'View Cart',
+                                      style: textTheme.labelLarge?.copyWith(
+                                        color: colorScheme.onSurface,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      restaurantName,
+                                      style: textTheme.labelSmall?.copyWith(
+                                        color: colorScheme.onSurfaceVariant,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                '\$${cart.totalAmount.toStringAsFixed(2)}',
+                                style: textTheme.titleMedium?.copyWith(
+                                  color: colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '\$${cart.totalAmount.toStringAsFixed(2)}',
-                            style: textTheme.titleMedium?.copyWith(
-                              color: colorScheme.onPrimary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -226,7 +276,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load menu: $error')),
+        error: (error, stack) =>
+            Center(child: Text('Failed to load menu: $error')),
       ),
     );
   }
@@ -282,7 +333,10 @@ class _RestaurantHeader extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: colorScheme.secondaryContainer.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8),
@@ -306,20 +360,32 @@ class _RestaurantHeader extends StatelessWidget {
           const Gap(10),
           Row(
             children: [
-              Icon(Icons.schedule, size: 16, color: colorScheme.onSurfaceVariant),
+              Icon(
+                Icons.schedule,
+                size: 16,
+                color: colorScheme.onSurfaceVariant,
+              ),
               const Gap(4),
               Text(
                 '${restaurant!.deliveryTimeMinutes - 5}-${restaurant!.deliveryTimeMinutes + 5} min',
-                style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
               const Gap(16),
-              Icon(Icons.delivery_dining, size: 16, color: colorScheme.onSurfaceVariant),
+              Icon(
+                Icons.delivery_dining,
+                size: 16,
+                color: colorScheme.onSurfaceVariant,
+              ),
               const Gap(4),
               Text(
                 restaurant!.deliveryFee == 0
                     ? 'Free Delivery'
                     : '\$${restaurant!.deliveryFee.toStringAsFixed(2)} Delivery',
-                style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -409,14 +475,18 @@ class _MenuItemCard extends ConsumerWidget {
                   item.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700),
+                  style: textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const Gap(4),
                 Text(
                   item.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
                 const Gap(8),
                 Text(
@@ -440,7 +510,11 @@ class _MenuItemCard extends ConsumerWidget {
                     : null,
                 child: Padding(
                   padding: EdgeInsets.all(10),
-                  child: Icon(Icons.add, color: colorScheme.onPrimary, size: 20),
+                  child: Icon(
+                    Icons.add,
+                    color: colorScheme.onPrimary,
+                    size: 20,
+                  ),
                 ),
               ),
             )
@@ -455,8 +529,13 @@ class _MenuItemCard extends ConsumerWidget {
                 children: [
                   IconButton(
                     visualDensity: VisualDensity.compact,
-                    onPressed: () => ref.read(cartProvider.notifier).decrease(item.id),
-                    icon: Icon(Icons.remove, color: colorScheme.primary, size: 16),
+                    onPressed: () =>
+                        ref.read(cartProvider.notifier).decrease(item.id),
+                    icon: Icon(
+                      Icons.remove,
+                      color: colorScheme.primary,
+                      size: 16,
+                    ),
                   ),
                   Text(
                     '${line.quantity}',
@@ -467,7 +546,8 @@ class _MenuItemCard extends ConsumerWidget {
                   ),
                   IconButton(
                     visualDensity: VisualDensity.compact,
-                    onPressed: () => ref.read(cartProvider.notifier).increase(item.id),
+                    onPressed: () =>
+                        ref.read(cartProvider.notifier).increase(item.id),
                     icon: Icon(Icons.add, color: colorScheme.primary, size: 16),
                   ),
                 ],

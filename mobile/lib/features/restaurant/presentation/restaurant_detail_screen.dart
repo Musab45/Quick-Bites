@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
+import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/data/models/menu_item.dart';
 import 'package:mobile/providers/browse_providers.dart';
 
@@ -70,7 +71,8 @@ class RestaurantDetailScreen extends ConsumerWidget {
                         top: 42,
                         left: 16,
                         child: CircleAvatar(
-                          backgroundColor: colorScheme.surfaceContainerLowest.withValues(alpha: 0.92),
+                          backgroundColor: colorScheme.surfaceContainerLowest
+                              .withValues(alpha: 0.92),
                           child: IconButton(
                             onPressed: () => context.pop(),
                             icon: const Icon(Icons.arrow_back),
@@ -81,7 +83,8 @@ class RestaurantDetailScreen extends ConsumerWidget {
                         top: 42,
                         right: 16,
                         child: CircleAvatar(
-                          backgroundColor: colorScheme.surfaceContainerLowest.withValues(alpha: 0.92),
+                          backgroundColor: colorScheme.surfaceContainerLowest
+                              .withValues(alpha: 0.92),
                           child: IconButton(
                             onPressed: () {
                               ref
@@ -235,22 +238,29 @@ class RestaurantDetailScreen extends ConsumerWidget {
                                       Expanded(
                                         child: Text(
                                           'Menu preview unavailable',
-                                          style: textTheme.titleMedium?.copyWith(
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                          style: textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                         ),
                                       ),
                                       TextButton(
-                                        onPressed: () => context.push('/restaurant/${restaurant.id}/menu'),
+                                        onPressed: () => context.push(
+                                          '/restaurant/${restaurant.id}/menu',
+                                        ),
                                         child: const Text('View Full Menu'),
                                       ),
                                     ],
                                   );
                                 }
 
-                                final previewItems = menuItems.take(2).toList(growable: false);
+                                final previewItems = menuItems
+                                    .take(2)
+                                    .toList(growable: false);
                                 final feature = previewItems.first;
-                                final compact = previewItems.length > 1 ? previewItems[1] : null;
+                                final compact = previewItems.length > 1
+                                    ? previewItems[1]
+                                    : null;
 
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,13 +270,16 @@ class RestaurantDetailScreen extends ConsumerWidget {
                                         Expanded(
                                           child: Text(
                                             'Popular Preview',
-                                            style: textTheme.titleMedium?.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                            style: textTheme.titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                ),
                                           ),
                                         ),
                                         TextButton(
-                                          onPressed: () => context.push('/restaurant/${restaurant.id}/menu'),
+                                          onPressed: () => context.push(
+                                            '/restaurant/${restaurant.id}/menu',
+                                          ),
                                           child: const Text('View Full Menu'),
                                         ),
                                       ],
@@ -361,7 +374,10 @@ class RestaurantDetailScreen extends ConsumerWidget {
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, stack) => Scaffold(
-        appBar: AppBar(title: const Text('Restaurant')),
+        appBar: QuickBiteAppBars.title(
+          title: 'Restaurant',
+          onBack: () => context.pop(),
+        ),
         body: Center(child: Text('Failed to load restaurant: $error')),
       ),
     );
@@ -484,11 +500,7 @@ class _CompactMenuRow extends ConsumerWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: colorScheme.surfaceContainerHigh),
-        ),
-      ),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
           Expanded(
