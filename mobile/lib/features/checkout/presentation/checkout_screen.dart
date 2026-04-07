@@ -8,6 +8,7 @@ import 'package:mobile/core/constants/app_spacing.dart';
 import 'package:mobile/core/widgets/app_bar_system.dart';
 import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/providers/browse_providers.dart';
+import 'package:mobile/providers/profile_settings_providers.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
@@ -20,6 +21,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   final _addressController = TextEditingController(text: '123 Test Street');
   String _paymentMethod = 'card';
   bool _isSubmitting = false;
+  bool _hydratedFromSettings = false;
 
   void _showAddressFeaturePending() {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -104,6 +106,14 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final cart = ref.watch(cartProvider);
+    final profileSettings = ref.watch(profileSettingsProvider);
+
+    if (profileSettings.initialized && !_hydratedFromSettings) {
+      _hydratedFromSettings = true;
+      _addressController.text = profileSettings.defaultAddress;
+      _paymentMethod = profileSettings.preferredPaymentMethod;
+    }
+
     final subtotal = cart.totalAmount;
     final lines = cart.lines.values.toList(growable: false);
     final deliveryFee = 2.0;
@@ -172,6 +182,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                       const Gap(4),
                       TextField(
                         controller: _addressController,
+                        onChanged: (value) {
+                          ref.read(profileSettingsProvider.notifier).updateAddress(value);
+                        },
                         style: textTheme.bodySmall,
                         decoration: InputDecoration(
                           hintText: 'Enter delivery address',
@@ -210,7 +223,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         icon: Icons.credit_card,
                         title: '**** 8842',
                         selected: _paymentMethod == 'card',
-                        onTap: () => setState(() => _paymentMethod = 'card'),
+                        onTap: () {
+                          setState(() => _paymentMethod = 'card');
+                          ref
+                              .read(profileSettingsProvider.notifier)
+                              .updatePreferredPaymentMethod('card');
+                        },
                       ),
                     ),
                     const Gap(8),
@@ -219,7 +237,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         icon: Icons.account_balance_wallet,
                         title: 'Wallet',
                         selected: _paymentMethod == 'wallet',
-                        onTap: () => setState(() => _paymentMethod = 'wallet'),
+                        onTap: () {
+                          setState(() => _paymentMethod = 'wallet');
+                          ref
+                              .read(profileSettingsProvider.notifier)
+                              .updatePreferredPaymentMethod('wallet');
+                        },
                       ),
                     ),
                     const Gap(8),
@@ -228,7 +251,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         icon: Icons.payments,
                         title: 'Cash',
                         selected: _paymentMethod == 'cash',
-                        onTap: () => setState(() => _paymentMethod = 'cash'),
+                        onTap: () {
+                          setState(() => _paymentMethod = 'cash');
+                          ref
+                              .read(profileSettingsProvider.notifier)
+                              .updatePreferredPaymentMethod('cash');
+                        },
                       ),
                     ),
                   ],

@@ -6,6 +6,7 @@ import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/data/models/menu_item.dart';
 import 'package:mobile/data/models/order.dart';
 import 'package:mobile/data/models/restaurant.dart';
+import 'package:mobile/data/models/restaurant_search_page.dart';
 import 'package:mobile/data/repositories/menu_repository.dart';
 import 'package:mobile/data/repositories/order_repository.dart';
 import 'package:mobile/data/repositories/restaurant_repository.dart';
@@ -84,6 +85,65 @@ final restaurantByIdProvider = FutureProvider.family<Restaurant, int>((
       .watch(restaurantRepositoryProvider)
       .fetchRestaurantById(restaurantId);
 });
+
+class RestaurantSearchRequest {
+  const RestaurantSearchRequest({
+    required this.query,
+    required this.page,
+    this.openNow,
+    this.maxDeliveryFee,
+    this.minRating,
+    required this.sort,
+  });
+
+  final String query;
+  final int page;
+  final bool? openNow;
+  final double? maxDeliveryFee;
+  final double? minRating;
+  final String sort;
+
+  @override
+  bool operator ==(Object other) {
+    return other is RestaurantSearchRequest &&
+        other.query == query &&
+        other.page == page &&
+        other.openNow == openNow &&
+        other.maxDeliveryFee == maxDeliveryFee &&
+        other.minRating == minRating &&
+        other.sort == sort;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    query,
+    page,
+    openNow,
+    maxDeliveryFee,
+    minRating,
+    sort,
+  );
+}
+
+final restaurantSearchProvider = FutureProvider.autoDispose
+    .family<RestaurantSearchPage, RestaurantSearchRequest>((ref, request) async {
+      return ref.watch(restaurantRepositoryProvider).searchRestaurants(
+        query: request.query,
+        page: request.page,
+        openNow: request.openNow,
+        maxDeliveryFee: request.maxDeliveryFee,
+        minRating: request.minRating,
+        sort: request.sort,
+      );
+    });
+
+final searchSuggestionsProvider = FutureProvider.autoDispose
+    .family<List<String>, String>((ref, query) async {
+      return ref.watch(restaurantRepositoryProvider).fetchSearchSuggestions(
+        query: query,
+        limit: 8,
+      );
+    });
 
 final menuByRestaurantProvider =
     FutureProvider.family<Map<String, List<MenuItem>>, int>((

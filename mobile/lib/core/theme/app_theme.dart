@@ -12,7 +12,7 @@ class AppTheme {
       primary: AppColors.primaryBlue,
       onPrimary: AppColors.white,
       primaryContainer: AppColors.primaryContainer,
-      onPrimaryContainer: const Color(0xFFEEEFFF),
+      onPrimaryContainer: AppColors.darkText,
       secondary: AppColors.accentOrange,
       onSecondary: AppColors.white,
       secondaryContainer: AppColors.secondaryContainer,
@@ -49,25 +49,42 @@ class AppTheme {
         fontWeight: FontWeight.w700,
         letterSpacing: -0.88,
         height: 1.12,
+        color: colorScheme.onSurface,
       ),
       headlineSmall: GoogleFonts.plusJakartaSans(
         fontSize: 24,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.24,
         height: 1.2,
+        color: colorScheme.onSurface,
       ),
       titleMedium: GoogleFonts.plusJakartaSans(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         letterSpacing: -0.18,
+        color: colorScheme.onSurface,
       ),
-      bodyMedium: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400, height: 1.5),
-      bodySmall: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400, height: 1.45),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        height: 1.5,
+        color: colorScheme.onSurface,
+      ),
+      bodySmall: GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        height: 1.45,
+        color: colorScheme.onSurfaceVariant,
+      ),
       labelSmall: GoogleFonts.inter(
         fontSize: 11,
         fontWeight: FontWeight.w700,
         letterSpacing: 0.55,
+        color: colorScheme.onSurface,
       ),
+    ).apply(
+      bodyColor: colorScheme.onSurface,
+      displayColor: colorScheme.onSurface,
     );
 
     return base.copyWith(

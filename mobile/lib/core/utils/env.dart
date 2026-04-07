@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Env {
   static String get apiBaseUrl {
     const configured = String.fromEnvironment('API_BASE_URL', defaultValue: '');
@@ -7,10 +5,8 @@ class Env {
       return configured;
     }
 
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:8000';
-    }
-
+    // Default to localhost so physical Android devices can use `adb reverse`.
+    // For Android emulators, pass --dart-define=API_BASE_URL=http://10.0.2.2:8000.
     return 'http://127.0.0.1:8000';
   }
   static const String demoEmail = String.fromEnvironment(

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/providers/auth_providers.dart';
 import 'package:mobile/providers/browse_providers.dart';
+import 'package:mobile/providers/profile_settings_providers.dart';
 import 'package:mobile/core/constants/app_radius.dart';
 import 'package:mobile/core/constants/app_spacing.dart';
 import 'package:mobile/core/widgets/app_bar_system.dart';
@@ -11,12 +12,103 @@ import 'package:mobile/core/widgets/state_widgets.dart';
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
+  Future<void> _editAddress(BuildContext context, WidgetRef ref, String current) async {
+    final controller = TextEditingController(text: current);
+    final result = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.sm,
+            AppSpacing.sm,
+            AppSpacing.sm,
+            MediaQuery.of(context).viewInsets.bottom + AppSpacing.sm,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: controller,
+                decoration: const InputDecoration(labelText: 'Default Address'),
+                maxLines: 2,
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: () => Navigator.of(context).pop(controller.text),
+                  child: const Text('Save Address'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    controller.dispose();
+    if (result == null || result.trim().isEmpty) {
+      return;
+    }
+    await ref.read(profileSettingsProvider.notifier).updateAddress(result);
+  }
+
+  Future<void> _selectPaymentMethod(BuildContext context, WidgetRef ref, String current) async {
+    final result = await showModalBottomSheet<String>(
+      context: context,
+      builder: (context) {
+        Widget option({required String value, required String label, required IconData icon}) {
+          final selected = current == value;
+          return ListTile(
+            leading: Icon(icon),
+            title: Text(label),
+            trailing: selected ? const Icon(Icons.check_circle) : null,
+            onTap: () => Navigator.of(context).pop(value),
+          );
+        }
+
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              option(value: 'card', label: 'Card', icon: Icons.credit_card),
+              option(
+                value: 'wallet',
+                label: 'Wallet',
+                icon: Icons.account_balance_wallet,
+              ),
+              option(value: 'cash', label: 'Cash', icon: Icons.payments),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (result == null) {
+      return;
+    }
+    await ref.read(profileSettingsProvider.notifier).updatePreferredPaymentMethod(result);
+  }
+
+  String _paymentMethodLabel(String value) {
+    switch (value) {
+      case 'cash':
+        return 'Cash';
+      case 'wallet':
+        return 'Wallet';
+      default:
+        return 'Card';
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final auth = ref.watch(authNotifierProvider);
     final ordersAsync = ref.watch(orderHistoryProvider);
+    final settings = ref.watch(profileSettingsProvider);
     final fullName = auth.user?.fullName ?? 'Guest';
     final email = auth.user?.email ?? '-';
     final initials = fullName
@@ -30,9 +122,7 @@ class ProfileScreen extends ConsumerWidget {
       appBar: QuickBiteAppBars.profile(
         title: 'My Profile',
         onSettings: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Settings panel is coming soon.')),
-          );
+          _editAddress(context, ref, settings.defaultAddress);
         },
       ),
       body: ListView(
@@ -214,7 +304,6 @@ class ProfileScreen extends ConsumerWidget {
                 showErrorSnackBar(
                   context: context,
                   message: 'Unable to load order history.',
-                  onRetry: () => ref.invalidate(orderHistoryProvider),
                 );
               });
               return AppEmptyState(
@@ -245,22 +334,28 @@ class ProfileScreen extends ConsumerWidget {
                 ListTile(
                   leading: _SettingIcon(icon: Icons.location_on),
                   title: const Text('My Addresses'),
+                  subtitle: Text(settings.defaultAddress),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
+                  onTap: () => _editAddress(context, ref, settings.defaultAddress),
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: _SettingIcon(icon: Icons.payments),
                   title: const Text('Payment Methods'),
+                  subtitle: Text(_paymentMethodLabel(settings.preferredPaymentMethod)),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
+                  onTap: () =>
+                      _selectPaymentMethod(context, ref, settings.preferredPaymentMethod),
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: _SettingIcon(icon: Icons.notifications),
                   title: const Text('Notifications'),
+                  subtitle: Text(settings.notificationsEnabled ? 'Enabled' : 'Disabled'),
                   trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
+                  onTap: () async {
+                    await ref.read(profileSettingsProvider.notifier).toggleNotifications();
+                  },
                 ),
                 const Divider(height: 1),
                 ListTile(

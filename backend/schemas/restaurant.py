@@ -25,3 +25,15 @@ class MenuItemResponse(BaseModel):
     is_available: bool
 
     model_config = {"from_attributes": True}
+
+
+class RestaurantSearchPageResponse(BaseModel):
+    items: list[RestaurantResponse]
+    page: int
+    page_size: int
+    total_items: int
+    total_pages: int
+
+
+class SearchSuggestionsResponse(BaseModel):
+    suggestions: list[str]

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -69,41 +71,75 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return Column(
                     children: [
                       Expanded(
-                        flex: 55,
-                        child: Container(
-                          color: colorScheme.primaryContainer.withValues(
-                            alpha: 0.16,
-                          ),
-                          padding: const EdgeInsets.all(AppSpacing.lg),
-                          child: Center(
-                            child: Transform.rotate(
-                              angle: 0.08,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(32),
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: Image.network(
-                                    page.imageUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: colorScheme.surfaceContainerHigh,
-                                        alignment: Alignment.center,
-                                        child: Icon(
-                                          Icons.image_not_supported_outlined,
-                                          color: colorScheme.onSurfaceVariant,
-                                          size: 40,
-                                        ),
-                                      );
-                                    },
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    colorScheme.primaryContainer.withValues(alpha: 0.22),
+                                    colorScheme.surfaceContainerLow.withValues(alpha: 0.14),
+                                    colorScheme.surface,
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: -72,
+                              left: -64,
+                              child: _BlurOrb(
+                                color: colorScheme.primary.withValues(alpha: 0.12),
+                                size: 240,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: -92,
+                              right: -36,
+                              child: _BlurOrb(
+                                color: colorScheme.secondary.withValues(alpha: 0.1),
+                                size: 280,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                AppSpacing.lg,
+                                AppSpacing.lg,
+                                AppSpacing.lg,
+                                180,
+                              ),
+                              child: Center(
+                                child: Transform.rotate(
+                                  angle: 0.08,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(32),
+                                    child: AspectRatio(
+                                      aspectRatio: 1,
+                                      child: Image.network(
+                                        page.imageUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Container(
+                                            color: colorScheme.surfaceContainerHigh,
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Icons.image_not_supported_outlined,
+                                              color: colorScheme.onSurfaceVariant,
+                                              size: 40,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                      const Expanded(flex: 45, child: SizedBox.shrink()),
                     ],
                   );
                 },
@@ -228,11 +264,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _finishOnboarding() async {
     await _storage.write(key: onboardingCompletedStorageKey, value: 'true');
-    final container = ProviderScope.containerOf(context, listen: false);
-    container.invalidate(onboardingStatusProvider);
     if (!mounted) {
       return;
     }
+    final container = ProviderScope.containerOf(context, listen: false);
+    container.invalidate(onboardingStatusProvider);
     context.go('/splash');
+  }
+}
+
+class _BlurOrb extends StatelessWidget {
+  const _BlurOrb({required this.color, required this.size});
+
+  final Color color;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 52, sigmaY: 52),
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: RadialGradient(
+            colors: [
+              color,
+              color.withValues(alpha: color.a * 0.42),
+              color.withValues(alpha: 0),
+            ],
+            stops: const [0.18, 0.58, 1.0],
+          ),
+        ),
+      ),
+    );
   }
 }
