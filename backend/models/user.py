@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from sqlalchemy import DateTime, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
 
@@ -15,4 +15,16 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False
+    )
+    profile: Mapped["UserProfile | None"] = relationship(
+        "UserProfile",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    wallet: Mapped["Wallet | None"] = relationship(
+        "Wallet",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
     )

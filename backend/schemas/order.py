@@ -12,6 +12,7 @@ class OrderCreateRequest(BaseModel):
     restaurant_id: int
     address: str = Field(min_length=5, max_length=255)
     payment_method: str = Field(min_length=2, max_length=50)
+    saved_card_id: int | None = Field(default=None, ge=1)
     items: list[OrderCreateItem]
 
 

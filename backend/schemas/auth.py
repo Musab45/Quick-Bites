@@ -27,3 +27,22 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserResponse
+
+
+class UserProfileResponse(BaseModel):
+    id: int
+    email: EmailStr
+    full_name: str
+    avatar_url: str | None = None
+    created_at: datetime
+
+
+class ProfileUpdateRequest(BaseModel):
+    full_name: str | None = Field(default=None, min_length=2, max_length=120)
+    email: EmailStr | None = None
+    avatar_url: str | None = Field(default=None, max_length=500)
+
+
+class PasswordUpdateRequest(BaseModel):
+    current_password: str = Field(min_length=8, max_length=128)
+    new_password: str = Field(min_length=8, max_length=128)

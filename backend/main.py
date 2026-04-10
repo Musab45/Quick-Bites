@@ -4,7 +4,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import init_db
-from routers import auth_router, menu_router, orders_router, restaurants_router
+from routers import (
+    auth_router,
+    menu_router,
+    orders_router,
+    restaurants_router,
+    payment_cards_router,
+    wallet_router,
+)
 
 
 @asynccontextmanager
@@ -33,3 +40,5 @@ app.include_router(auth_router)
 app.include_router(restaurants_router)
 app.include_router(menu_router)
 app.include_router(orders_router)
+app.include_router(payment_cards_router)
+app.include_router(wallet_router)
