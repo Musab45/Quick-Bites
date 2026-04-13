@@ -8,14 +8,28 @@ from schemas.auth import (
     LoginRequest,
     PasswordUpdateRequest,
     ProfileUpdateRequest,
+    RefreshTokenRequest,
+    RefreshTokenResponse,
     RegisterRequest,
     TokenResponse,
     UserProfileResponse,
     UserResponse,
 )
-from security import create_access_token, hash_password, verify_password
+from security import (
+    InvalidTokenError,
+    create_access_token,
+    create_refresh_token,
+    decode_refresh_token,
+    hash_password,
+    verify_password,
+)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+def _issue_tokens(user_id: int) -> tuple[str, str]:
+    subject = str(user_id)
+    return create_access_token(subject), create_refresh_token(subject)
 
 
 def _to_profile_response(user: User) -> UserProfileResponse:
@@ -62,8 +76,31 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)) -> TokenResponse
     if user is None or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
-    token = create_access_token(str(user.id))
-    return TokenResponse(access_token=token, user=UserResponse.model_validate(user))
+    access_token, refresh_token = _issue_tokens(user.id)
+    return TokenResponse(
+        access_token=access_token,
+        refresh_token=refresh_token,
+        user=UserResponse.model_validate(user),
+    )
+
+
+@router.post("/refresh", response_model=RefreshTokenResponse)
+def refresh_access_token(payload: RefreshTokenRequest, db: Session = Depends(get_db)) -> RefreshTokenResponse:
+    try:
+        token_payload = decode_refresh_token(payload.refresh_token)
+        user_id = int(token_payload.get("sub", 0))
+    except (InvalidTokenError, ValueError):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+    user = db.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    access_token, refresh_token = _issue_tokens(user.id)
+    return RefreshTokenResponse(
+        access_token=access_token,
+        refresh_token=refresh_token,
+    )
 
 
 @router.get("/me", response_model=UserProfileResponse)

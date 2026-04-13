@@ -25,7 +25,17 @@ def test_auth_and_order_flow() -> None:
     )
     assert login_response.status_code == 200
     token = login_response.json()["access_token"]
+    refresh_token = login_response.json()["refresh_token"]
     headers = {"Authorization": f"Bearer {token}"}
+
+    refresh_response = client.post(
+        "/auth/refresh",
+        json={"refresh_token": refresh_token},
+    )
+    assert refresh_response.status_code == 200
+    refreshed_body = refresh_response.json()
+    assert refreshed_body["access_token"]
+    assert refreshed_body["refresh_token"]
 
     restaurants_response = client.get("/restaurants")
     assert restaurants_response.status_code == 200
